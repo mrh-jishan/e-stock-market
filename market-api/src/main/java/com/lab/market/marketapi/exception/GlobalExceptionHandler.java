@@ -56,16 +56,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                       HttpStatus httpStatus,
                                                       WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(httpStatus.value(), message);
-
         errorResponse.setStackTrace(ExceptionUtils.getStackTrace(exception));
         return ResponseEntity.status(httpStatus).body(errorResponse);
-    }
-
-    private boolean isTraceOn(WebRequest request) {
-        String[] value = request.getParameterValues("trace");
-        return Objects.nonNull(value)
-                && value.length > 0
-                && value[0].contentEquals("true");
     }
 
     @Override

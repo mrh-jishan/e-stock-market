@@ -1,10 +1,9 @@
 package com.lab.stockapi.stockapi.stock;
 
-import com.lab.stockapi.stockapi.exception.RecordNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,8 +15,8 @@ public class StockService {
     private final StockMapper companyMapper;
 
     public List<StockDto> getStockList(final String companyCode,
-                                       final LocalDate startDate,
-                                       final LocalDate endDate) {
+                                       final Date startDate,
+                                       final Date endDate) {
         return repository.findAll()
                 .parallelStream()
                 .map(companyMapper::map).collect(Collectors.toList());

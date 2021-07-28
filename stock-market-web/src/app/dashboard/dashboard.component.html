@@ -1,0 +1,95 @@
+<mat-card fxLayout="row" fxLayoutAlign="space-around center">
+  <button mat-raised-button>Add Company</button>
+  <button mat-raised-button>List All Companies</button>
+  <form [formGroup]="companySearchForm">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field>
+        <mat-label>Company Code</mat-label>
+        <input matInput type="text" formControlName="companyCode" placeholder="Ex. X123"/>
+      </mat-form-field>
+
+      <button mat-stroked-button color="accent">
+        Search
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card>
+  <form [formGroup]="stockSearchForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Favorite food</mat-label>
+      <input matInput placeholder="Ex. Pizza" value="Sushi">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Leave a comment</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+  </form>
+</mat-card>
+
+<mat-card>
+  <form [formGroup]="stockSearchForm">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field>
+        <mat-label>Form Date</mat-label>
+        <input matInput [matDatepicker]="formDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="formDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #formDatepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>To Date</mat-label>
+        <input matInput [matDatepicker]="toDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #toDatepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <button mat-stroked-button color="accent">
+        Search
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef> Weight</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef> Symbol</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-card>

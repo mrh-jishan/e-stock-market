@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j(topic = "COMPANY_CONTROLLER")
@@ -22,8 +22,8 @@ public class StockController {
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StockDto> companyInfo(@PathVariable(value = "companyCode") String companyCode,
-                                      @PathVariable(value = "startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
-                                      @PathVariable(value = "endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate) {
+                                      @PathVariable(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+                                      @PathVariable(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         return stockService.getStockList(companyCode, startDate, endDate);
     }
 

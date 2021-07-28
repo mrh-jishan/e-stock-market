@@ -1,9 +1,12 @@
 package com.lab.market.marketapi.company;
 
 import com.lab.market.marketapi.exception.RecordNotFoundException;
+import com.lab.market.marketapi.stock.StockDto;
+import com.lab.market.marketapi.stock.StockService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +16,7 @@ public class CompanyService {
 
     private final CompanyRepository repository;
     private final CompanyMapper companyMapper;
+    private final StockService stockService;
 
     public List<CompanyDto> getAllCompanies() {
         return repository.findAll()
@@ -21,10 +25,11 @@ public class CompanyService {
 
     }
 
-    public CompanyDto getCompany(String code) {
+    public Company getCompany(String code) {
         CompanyEntity companyEntity = repository.findByCode(code).orElseThrow(() ->
                 new RecordNotFoundException("Record Not found"));
-        return companyMapper.map(companyEntity);
+        List<StockDto> stocks = stockService.companyInfo(code, new Date(), new Date());
+        return companyMapper.map(companyEntity,stocks);
     }
 
     public CompanyDto addCompany(CompanyDto companyDto) {

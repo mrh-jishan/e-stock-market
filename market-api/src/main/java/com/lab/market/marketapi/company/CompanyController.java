@@ -26,7 +26,7 @@ public class CompanyController {
     @GetMapping(value = "/info/{companyCode}",
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public CompanyDto companyInfo(@PathVariable(value = "companyCode") String companyCode) {
+    public Company companyInfo(@PathVariable(value = "companyCode") String companyCode) {
         return companyService.getCompany(companyCode);
     }
 

@@ -1,26 +1,18 @@
 package com.lab.stockapi.stockapi.common;
 
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-//@MappedSuperclass
-//@EntityListeners(AuditingEntityListener.class)
+@Data
 public abstract class DateAudit implements Serializable {
+
     @CreatedDate
-//    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDate createdAt;
+    private Date createdAt;
 
     @LastModifiedDate
-//    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-
-    protected void prePersist() {
-        if (this.createdAt == null) createdAt = LocalDate.now();
-        if (this.updatedAt == null) updatedAt = LocalDateTime.now();
-    }
+    private Date updatedAt;
 }

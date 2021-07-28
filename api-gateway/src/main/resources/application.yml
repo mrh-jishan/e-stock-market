@@ -1,0 +1,29 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /api
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: CompanyModule
+          uri: lb://MARKET-API/
+          predicates:
+            - Path=/api/v1.0/market/company/**
+        - id: StockModule
+          uri: lb://STOCK-API/
+          predicates:
+            - Path=/api/v/1.0/market/stock/**
+
+management:
+  endpoint:
+    health:
+      show-components: always
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
