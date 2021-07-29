@@ -8,9 +8,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -29,7 +31,8 @@ public class CompanyEntity extends DateAudit implements Serializable {
     @NotBlank
     private String ceo;
     @NotNull
-    private double turnover;
+    @Min(10000000)
+    private BigDecimal turnover;
     @NotBlank
     private String website;
     @NotBlank

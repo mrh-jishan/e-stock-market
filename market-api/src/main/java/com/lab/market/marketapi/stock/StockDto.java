@@ -1,24 +1,31 @@
 package com.lab.market.marketapi.stock;
 
+import com.lab.market.marketapi.common.DateAudit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockDto {
     @NotEmpty
-    private String name;
+    private String id;
+
     @NotEmpty
-    private String ceo;
+    private String code;
+
     @NotNull
-    private double turnover;
+    private double price;
+
     @NotEmpty
-    private String website;
+    private Date createdAt;
+
     @NotEmpty
-    private String exchangeCode;
+    private Date updatedAt;
 }

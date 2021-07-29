@@ -14,20 +14,24 @@ public class StockService {
     private final StockRepository repository;
     private final StockMapper stockMapper;
 
-    public List<StockDto> getStockList(final String companyCode,
-                                       final Date startDate,
-                                       final Date endDate) {
-        return repository.findAll()
-                .parallelStream()
-                .map(stockMapper::map).collect(Collectors.toList());
+    public List<Stock> getStockList(final String companyCode,
+                                    final Date startDate,
+                                    final Date endDate) {
+        List<StockEntity> stocksByQuery = repository.findStockByQuery(companyCode, startDate, endDate);
+        return stockMapper.map(stocksByQuery);
     }
 
-    public StockDto addStock(String companyCode, StockDto companyDto) {
+    public List<Stock> getStockList(final String companyCode) {
+        List<StockEntity> stocksByQuery = repository.findAllByCode(companyCode);
+        return stockMapper.map(stocksByQuery);
+    }
+
+    public Stock addStock(String companyCode, StockDto companyDto) {
         StockEntity companyEntity = repository.save(stockMapper.map(companyCode, companyDto));
         return stockMapper.map(companyEntity);
     }
 
-    public List<StockDto> deleteStock(String companyCode) {
+    public List<Stock> deleteStock(String companyCode) {
         List<StockEntity> stockEntities = repository.deleteAllByCode(companyCode);
         return stockEntities.stream().map(stockMapper::map).collect(Collectors.toList());
     }

@@ -20,16 +20,10 @@ import java.io.Serializable;
 public class StockEntity extends DateAudit implements Serializable {
     @Id
     private String id;
+
     @NotBlank
     private String code;
-    @NotBlank
-    private String name;
-    @NotBlank
-    private String ceo;
+
     @NotNull
-    private double turnover;
-    @NotBlank
-    private String website;
-    @NotBlank
-    private String exchangeCode;
+    private double price;
 }

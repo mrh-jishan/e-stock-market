@@ -21,17 +21,24 @@ public class StockController {
     @GetMapping(value = "/get/{companyCode}/{startDate}/{endDate}",
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StockDto> stockList(@PathVariable(value = "companyCode") String companyCode,
+    public List<Stock> stockList(@PathVariable(value = "companyCode") String companyCode,
                                     @PathVariable(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
                                     @PathVariable(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         return stockService.getStockList(companyCode, startDate, endDate);
+    }
+
+    @GetMapping(value = "/get/{companyCode}",
+            consumes = MediaType.ALL_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Stock> stockList(@PathVariable(value = "companyCode") String companyCode) {
+        return stockService.getStockList(companyCode);
     }
 
     @PostMapping(value = "/add/{companyCode}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public StockDto addStock(@Valid @RequestBody StockDto stockDto,
+    public Stock addStock(@Valid @RequestBody StockDto stockDto,
                              @PathVariable(value = "companyCode") String companyCode) {
         return stockService.addStock(companyCode, stockDto);
     }
@@ -40,7 +47,7 @@ public class StockController {
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public List<StockDto> deleteStock(@PathVariable(value = "companyCode") String companyCode) {
+    public List<Stock> deleteStock(@PathVariable(value = "companyCode") String companyCode) {
         return stockService.deleteStock(companyCode);
     }
 }

@@ -11,4 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Company extends CompanyDto{
     private List<StockDto> stocks;
+    private double max;
+    private double min;
+    private double avg;
 }

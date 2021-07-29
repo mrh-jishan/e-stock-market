@@ -1,16 +1,23 @@
 package com.lab.stockapi.stockapi.stock;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.lab.stockapi.stockapi.common.DateAudit;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockDto {
+public class Stock extends DateAudit {
+
+    @NotEmpty
+    private String id;
+
+    @NotEmpty
+    private String code;
+
     @NotNull
     private double price;
 }
