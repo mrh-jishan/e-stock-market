@@ -1,95 +1,90 @@
-<mat-card fxLayout="row" fxLayoutAlign="space-around center">
-  <button mat-raised-button>Add Company</button>
-  <button mat-raised-button>List All Companies</button>
-  <form [formGroup]="companySearchForm">
-    <div fxLayout="row" fxLayoutAlign="center center">
+<mat-card fxLayout="row" fxLayoutAlign="center">
+  <mat-card-content fxLayout="column" fxFlex="80" fxLayoutAlign="center end">
+    <form [formGroup]="companySearchForm">
       <mat-form-field>
         <mat-label>Company Code</mat-label>
         <input matInput type="text" formControlName="companyCode" placeholder="Ex. X123"/>
       </mat-form-field>
-
-      <button mat-stroked-button color="accent">
-        Search
-      </button>
-    </div>
-  </form>
+      <button mat-raised-button color="accent">Search</button>
+    </form>
+  </mat-card-content>
 </mat-card>
 
-<mat-card>
-  <form [formGroup]="stockSearchForm">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Favorite food</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi">
-    </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Leave a comment</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-    </mat-form-field>
-  </form>
+<mat-card fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="row">
+    <h4>Company Name</h4>
+  </div>
+  <div fxLayout="row">
+    <h4>Company Code: </h4>
+  </div>
 </mat-card>
 
-<mat-card>
+<mat-card fxLayout="row" fxLayoutAlign="center center">
   <form [formGroup]="stockSearchForm">
     <div fxLayout="row" fxLayoutAlign="center center">
       <mat-form-field>
         <mat-label>Form Date</mat-label>
-        <input matInput [matDatepicker]="formDatepicker">
-        <mat-datepicker-toggle matSuffix [for]="formDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #formDatepicker>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
+        <input matInput [matDatepicker]="formDate"/>
+        <mat-datepicker-toggle matSuffix [for]="formDate"></mat-datepicker-toggle>
+        <mat-datepicker #formDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>To Date</mat-label>
-        <input matInput [matDatepicker]="toDatepicker">
-        <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #toDatepicker>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
+        <input matInput [matDatepicker]="toDate"/>
+        <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+        <mat-datepicker #toDate></mat-datepicker>
       </mat-form-field>
 
-      <button mat-stroked-button color="accent">
-        Search
-      </button>
+      <button mat-raised-button color="accent">Search</button>
     </div>
   </form>
 </mat-card>
 
-<mat-card>
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-    </ng-container>
+<mat-card fxLayout="row" fxLayoutAlign="space-around center">
+  <mat-card-content fxFlex="70">
+    <mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef> Weight</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-    </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef> Symbol</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-    </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+<mat-card fxLayout="row" fxLayoutAlign="center center">
+  <mat-card-content fxLayout="column" fxFlex="70">
+    <div fxLayout="row">
+      <h4>Min: </h4>
+    </div>
+    <div fxLayout="row">
+      <h4>Max: </h4>
+    </div>
+    <div fxLayout="row">
+      <h4>Avg: </h4>
+    </div>
+  </mat-card-content>
 </mat-card>

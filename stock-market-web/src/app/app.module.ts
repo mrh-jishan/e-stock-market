@@ -17,11 +17,18 @@ import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { AddCompanyComponent } from './add-company/add-company.component';
+import { AddStockComponent } from './add-stock/add-stock.component';
+import { ListCompanyComponent } from './list-company/list-company.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddCompanyComponent,
+    AddStockComponent,
+    ListCompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatInputModule,
     MatTableModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

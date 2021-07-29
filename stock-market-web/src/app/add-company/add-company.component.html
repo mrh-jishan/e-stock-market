@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="addCompanyForm" fxLayout="column" fxLayoutAlign="space-around center">
+      <mat-form-field >
+        <mat-label>Company Code</mat-label>
+        <input matInput type="text" formControlName="code" placeholder="Ex. X123"/>
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Company Name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Ex. XXX LTD"/>
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Company CEO</mat-label>
+        <input matInput type="text" formControlName="ceo" placeholder="Ex. John Doe"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Company turnover</mat-label>
+        <input matInput type="text" formControlName="turnover" placeholder="Ex. 1000000"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Company Website</mat-label>
+        <input matInput type="text" formControlName="website" placeholder="Ex. www.example.com"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Company Exchange Code</mat-label>
+        <input matInput type="text" formControlName="exchangeCode" placeholder="Ex. GOGL"/>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent">Save</button>
+    </form>
+  </mat-card-content>
+</mat-card>
