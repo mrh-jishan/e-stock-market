@@ -12,18 +12,23 @@ import java.util.stream.Collectors;
 public class StockService {
 
     private final StockRepository repository;
-    private final StockMapper companyMapper;
+    private final StockMapper stockMapper;
 
     public List<StockDto> getStockList(final String companyCode,
                                        final Date startDate,
                                        final Date endDate) {
         return repository.findAll()
                 .parallelStream()
-                .map(companyMapper::map).collect(Collectors.toList());
+                .map(stockMapper::map).collect(Collectors.toList());
     }
 
     public StockDto addStock(String companyCode, StockDto companyDto) {
-        StockEntity companyEntity = repository.save(companyMapper.map(companyCode, companyDto));
-        return companyMapper.map(companyEntity);
+        StockEntity companyEntity = repository.save(stockMapper.map(companyCode, companyDto));
+        return stockMapper.map(companyEntity);
+    }
+
+    public List<StockDto> deleteStock(String companyCode) {
+        List<StockEntity> stockEntities = repository.deleteAllByCode(companyCode);
+        return stockEntities.stream().map(stockMapper::map).collect(Collectors.toList());
     }
 }

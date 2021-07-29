@@ -29,7 +29,7 @@ public class CompanyService {
         CompanyEntity companyEntity = repository.findByCode(code).orElseThrow(() ->
                 new RecordNotFoundException("Record Not found"));
         List<StockDto> stocks = stockService.companyInfo(code, new Date(), new Date());
-        return companyMapper.map(companyEntity,stocks);
+        return companyMapper.map(companyEntity, stocks);
     }
 
     public CompanyDto addCompany(CompanyDto companyDto) {
@@ -38,9 +38,10 @@ public class CompanyService {
     }
 
     public long deleteCompany(String code) {
-        return repository.findByCode(code).map(companyEntity1 -> repository.deleteByCode(code))
+        return repository.findByCode(code)
+                .map(companyEntity -> stockService.deleteStock(code))
+                .map(entity -> repository.deleteByCode(code))
                 .orElseThrow(() ->
                         new RecordNotFoundException("Record Not found"));
     }
-
 }

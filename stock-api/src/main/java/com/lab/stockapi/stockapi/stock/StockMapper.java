@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 public interface StockMapper {
     StockEntity map(String code, StockDto stockDto);
 
-    StockDto map(StockEntity company);
+    StockDto map(StockEntity stockEntity);
 }
