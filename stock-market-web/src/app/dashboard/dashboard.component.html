@@ -28,19 +28,22 @@
     <div fxLayout="row" fxLayoutAlign="center center">
       <mat-form-field>
         <mat-label>Form Date</mat-label>
-        <input matInput [matDatepicker]="formDate"/>
+        <input matInput [matDatepicker]="formDate" formControlName="fromDate"/>
         <mat-datepicker-toggle matSuffix [for]="formDate"></mat-datepicker-toggle>
         <mat-datepicker #formDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>To Date</mat-label>
-        <input matInput [matDatepicker]="toDate"/>
+        <input matInput [matDatepicker]="toDate" formControlName="toDate"/>
         <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
         <mat-datepicker #toDate></mat-datepicker>
       </mat-form-field>
 
-      <button mat-raised-button color="accent">Search</button>
+      <button mat-raised-button color="accent"
+              [disabled]="stockSearchForm.invalid"
+              (click)="onFilterStock()">Search
+      </button>
     </div>
   </form>
 </mat-card>
@@ -48,11 +51,6 @@
 <mat-card fxLayout="row" fxLayoutAlign="space-around center">
   <mat-card-content fxFlex="70">
     <mat-table [dataSource]="companyData.stocks">
-
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> ID.</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-      </ng-container>
 
       <ng-container matColumnDef="code">
         <mat-header-cell *matHeaderCellDef> Code</mat-header-cell>

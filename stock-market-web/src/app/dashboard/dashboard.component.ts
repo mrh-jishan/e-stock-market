@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   companySearchForm: FormGroup;
   stockSearchForm: FormGroup;
-  displayedColumns: string[] = ['id', 'code', 'price', 'createdAt', 'updatedAt'];
+  displayedColumns: string[] = ['code', 'price', 'createdAt', 'updatedAt'];
   companyData: CompanyData = {name: '', code: '', stocks: [], min: 0, max: 0, avg: 0};
 
   constructor(private _fb: FormBuilder,
@@ -63,4 +63,22 @@ export class DashboardComponent implements OnInit {
       })
   }
 
+
+  onFilterStock() {
+    const stockFormValue = this.stockSearchForm.value;
+    this.appService.getFilterStock(this.companySearchForm.value.companyCode,
+      new Date(stockFormValue.fromDate).toISOString().slice(0, 10),
+      new Date(stockFormValue.toDate).toISOString().slice(0, 10),
+    )
+      .subscribe((res: StockData[]) => {
+        console.log(res)
+        this.companyData = {...this.companyData, stocks: res};
+      }, error => {
+        console.log('err: ', error)
+        this.dialog.open(DialogComponent, {
+          width: '350px',
+          data: {title: 'Error Message!', message: 'Sorry! Not found. Please try again...'}
+        });
+      })
+  }
 }

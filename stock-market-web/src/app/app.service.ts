@@ -26,4 +26,8 @@ export class AppService {
   getStockList(companyCode) {
     return this.http.get(`http://localhost:8080/api/v1.0/market/company/info/${companyCode}`, {headers: this.headers})
   }
+
+  getFilterStock(companyCode, startDate, endDate) {
+    return this.http.get(`http://localhost:8080/api/v1.0/market/stock/get/${companyCode}/${startDate}/${endDate}`, {headers: this.headers})
+  }
 }
