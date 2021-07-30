@@ -7,6 +7,16 @@ spring:
     name: API-GATEWAY
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedHeaders: "*"
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
       routes:
         - id: CompanyModule
           uri: lb://MARKET-API/
@@ -15,7 +25,7 @@ spring:
         - id: StockModule
           uri: lb://STOCK-API/
           predicates:
-            - Path=/api/v/1.0/market/stock/**
+            - Path=/api/v1.0/market/stock/**
 
 management:
   endpoint:

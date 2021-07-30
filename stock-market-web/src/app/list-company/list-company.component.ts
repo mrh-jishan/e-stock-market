@@ -1,21 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PeriodicElement} from "../dashboard/dashboard.component";
+import {FormBuilder} from "@angular/forms";
+import {AppService} from "../app.service";
+import {Company} from "../add-stock/add-stock.component";
 
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
+export interface ICompany {
+  ceo: string,
+  code: string,
+  exchangeCode: string,
+  name: string,
+  turnover: number,
+  website: string
+}
 
 @Component({
   selector: 'app-list-company',
@@ -24,23 +19,20 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListCompanyComponent implements OnInit {
 
-  companySearchForm: FormGroup;
-  stockSearchForm: FormGroup;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['ceo', 'code', 'exchangeCode', 'name', 'turnover', 'website'];
+  companyList: ICompany[]
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder,
+              private appService: AppService) {
   }
 
   ngOnInit(): void {
-    this.companySearchForm = this._fb.group({
-      companyCode: ['', Validators.required]
-    })
-
-    this.stockSearchForm = this._fb.group({
-      fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
-    })
+    this.appService.getCompanyList()
+      .subscribe((res: Company[]) => {
+        this.companyList = res;
+      }, error => {
+        console.log('err: ', error)
+      })
   }
 
 }

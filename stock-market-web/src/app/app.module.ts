@@ -21,6 +21,9 @@ import { AddCompanyComponent } from './add-company/add-company.component';
 import { AddStockComponent } from './add-stock/add-stock.component';
 import { ListCompanyComponent } from './list-company/list-company.component';
 import {MatSelectModule} from "@angular/material/select";
+import {AppService} from "./app.service";
+import { DialogComponent } from './common/dialog/dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import {MatSelectModule} from "@angular/material/select";
     DashboardComponent,
     AddCompanyComponent,
     AddStockComponent,
-    ListCompanyComponent
+    ListCompanyComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +51,11 @@ import {MatSelectModule} from "@angular/material/select";
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
