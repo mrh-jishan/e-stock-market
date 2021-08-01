@@ -6,9 +6,7 @@ import com.lab.market.marketapi.stock.StockService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.DoubleSummaryStatistics;
-import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.stream.Collectors;
 

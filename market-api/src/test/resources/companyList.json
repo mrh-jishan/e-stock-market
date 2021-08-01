@@ -1,0 +1,18 @@
+[
+  {
+    "code": "xxx1",
+    "name": "first-company",
+    "ceo": "string",
+    "turnover": 100000000,
+    "website": "string",
+    "exchangeCode": "string"
+  },
+  {
+    "code": "xxx2",
+    "name": "second-company",
+    "ceo": "string",
+    "turnover": 100000000,
+    "website": "string",
+    "exchangeCode": "string"
+  }
+]

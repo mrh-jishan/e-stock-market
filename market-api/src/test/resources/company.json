@@ -1,0 +1,20 @@
+{
+  "code": "xxx1",
+  "name": "string",
+  "ceo": "string",
+  "turnover": 0,
+  "website": "string",
+  "exchangeCode": "string",
+  "stocks": [
+    {
+      "id": "string",
+      "code": "string",
+      "price": 0,
+      "createdAt": "2021-08-01T16:35:20.284Z",
+      "updatedAt": "2021-08-01T16:35:20.284Z"
+    }
+  ],
+  "max": 0,
+  "min": 0,
+  "avg": 0
+}
