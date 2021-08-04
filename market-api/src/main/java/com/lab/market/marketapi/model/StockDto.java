@@ -1,4 +1,4 @@
-package com.lab.market.marketapi.stock;
+package com.lab.market.marketapi.model;
 
 import com.lab.market.marketapi.common.DateAudit;
 import lombok.AllArgsConstructor;

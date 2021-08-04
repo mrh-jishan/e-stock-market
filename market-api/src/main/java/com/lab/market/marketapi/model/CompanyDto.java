@@ -1,4 +1,4 @@
-package com.lab.market.marketapi.company;
+package com.lab.market.marketapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

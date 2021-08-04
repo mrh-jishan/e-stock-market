@@ -1,6 +1,9 @@
 package com.lab.market.marketapi.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lab.market.marketapi.controller.CompanyController;
+import com.lab.market.marketapi.model.CompanyDto;
+import com.lab.market.marketapi.services.CompanyService;
 import com.lab.market.marketapi.util.TestDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

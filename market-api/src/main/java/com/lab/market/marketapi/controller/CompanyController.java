@@ -1,5 +1,8 @@
-package com.lab.market.marketapi.company;
+package com.lab.market.marketapi.controller;
 
+import com.lab.market.marketapi.model.Company;
+import com.lab.market.marketapi.model.CompanyDto;
+import com.lab.market.marketapi.services.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

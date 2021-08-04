@@ -1,4 +1,4 @@
-package com.lab.stockapi.stockapi.stock;
+package com.lab.stockapi.stockapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lab.stockapi.stockapi.common.DateAudit;

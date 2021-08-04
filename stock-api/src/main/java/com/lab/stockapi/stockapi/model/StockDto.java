@@ -1,4 +1,4 @@
-package com.lab.stockapi.stockapi.stock;
+package com.lab.stockapi.stockapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,12 @@
-package com.lab.market.marketapi.company;
+package com.lab.market.marketapi.services;
 
+import com.lab.market.marketapi.entity.CompanyEntity;
+import com.lab.market.marketapi.mapper.CompanyMapper;
+import com.lab.market.marketapi.model.Company;
+import com.lab.market.marketapi.model.CompanyDto;
 import com.lab.market.marketapi.exception.RecordNotFoundException;
-import com.lab.market.marketapi.stock.StockDto;
-import com.lab.market.marketapi.stock.StockService;
+import com.lab.market.marketapi.repository.CompanyRepository;
+import com.lab.market.marketapi.model.StockDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

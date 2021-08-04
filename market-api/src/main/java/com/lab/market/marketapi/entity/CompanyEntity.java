@@ -1,4 +1,4 @@
-package com.lab.market.marketapi.company;
+package com.lab.market.marketapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lab.market.marketapi.common.DateAudit;

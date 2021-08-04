@@ -2,8 +2,8 @@ package com.lab.market.marketapi.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lab.market.marketapi.company.Company;
-import com.lab.market.marketapi.company.CompanyDto;
+import com.lab.market.marketapi.model.Company;
+import com.lab.market.marketapi.model.CompanyDto;
 
 import java.io.File;
 import java.io.IOException;

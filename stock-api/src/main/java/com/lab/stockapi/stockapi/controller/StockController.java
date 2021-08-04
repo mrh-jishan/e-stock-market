@@ -1,5 +1,8 @@
-package com.lab.stockapi.stockapi.stock;
+package com.lab.stockapi.stockapi.controller;
 
+import com.lab.stockapi.stockapi.model.Stock;
+import com.lab.stockapi.stockapi.model.StockDto;
+import com.lab.stockapi.stockapi.services.StockService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,7 +42,7 @@ public class StockController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public Stock addStock(@Valid @RequestBody StockDto stockDto,
-                             @PathVariable(value = "companyCode") String companyCode) {
+                          @PathVariable(value = "companyCode") String companyCode) {
         return stockService.addStock(companyCode, stockDto);
     }
 

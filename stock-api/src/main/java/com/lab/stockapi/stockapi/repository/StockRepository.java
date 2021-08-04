@@ -1,5 +1,6 @@
-package com.lab.stockapi.stockapi.stock;
+package com.lab.stockapi.stockapi.repository;
 
+import com.lab.stockapi.stockapi.entity.StockEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

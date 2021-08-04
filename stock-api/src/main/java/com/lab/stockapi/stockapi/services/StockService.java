@@ -1,5 +1,10 @@
-package com.lab.stockapi.stockapi.stock;
+package com.lab.stockapi.stockapi.services;
 
+import com.lab.stockapi.stockapi.mapper.StockMapper;
+import com.lab.stockapi.stockapi.model.Stock;
+import com.lab.stockapi.stockapi.model.StockDto;
+import com.lab.stockapi.stockapi.entity.StockEntity;
+import com.lab.stockapi.stockapi.repository.StockRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

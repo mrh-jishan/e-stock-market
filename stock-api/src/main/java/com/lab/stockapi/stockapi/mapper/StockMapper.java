@@ -1,5 +1,8 @@
-package com.lab.stockapi.stockapi.stock;
+package com.lab.stockapi.stockapi.mapper;
 
+import com.lab.stockapi.stockapi.model.Stock;
+import com.lab.stockapi.stockapi.model.StockDto;
+import com.lab.stockapi.stockapi.entity.StockEntity;
 import org.mapstruct.Mapper;
 
 import java.util.List;

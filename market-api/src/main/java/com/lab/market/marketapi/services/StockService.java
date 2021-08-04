@@ -1,5 +1,6 @@
-package com.lab.market.marketapi.stock;
+package com.lab.market.marketapi.services;
 
+import com.lab.market.marketapi.model.StockDto;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -8,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Date;
 import java.util.List;
 
 @Service

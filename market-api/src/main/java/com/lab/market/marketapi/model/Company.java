@@ -1,6 +1,5 @@
-package com.lab.market.marketapi.company;
+package com.lab.market.marketapi.model;
 
-import com.lab.market.marketapi.stock.StockDto;
 import lombok.*;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Company extends CompanyDto{
+public class Company extends CompanyDto {
     private List<StockDto> stocks;
     private double max;
     private double min;
