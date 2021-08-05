@@ -14,11 +14,11 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     private final String jwtSecret = "xdtlD3JK56m6wTTgsNFhqzjqP";
-    private final String jwtIssuer = "stock-market-app.com";
 
     private final Logger logger;
 
     public String generateAccessToken(User user) {
+        String jwtIssuer = "stock-market-app.com";
         return Jwts.builder()
                 .setSubject(String.format("%s,%s", user.getId(), user.getUsername()))
                 .setIssuer(jwtIssuer)
