@@ -26,6 +26,9 @@ spring:
           uri: lb://STOCK-API/
           predicates:
             - Path=/api/v1.0/market/stock/**
+      discovery:
+        locator:
+          enabled: true
 
 management:
   endpoint:
