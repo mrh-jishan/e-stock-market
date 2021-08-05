@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.dto;
+package com.lab.authapi.authapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

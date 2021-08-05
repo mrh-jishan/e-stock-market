@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.dto;
+package com.lab.authapi.authapi.dto;
 
 import lombok.Data;
 
@@ -7,6 +7,7 @@ public class SearchUsersQuery {
 
     private String id;
     private String username;
+    private String email;
     private String fullName;
 
 }

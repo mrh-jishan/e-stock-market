@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.mapper;
+package com.lab.authapi.authapi.mapper;
 
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;

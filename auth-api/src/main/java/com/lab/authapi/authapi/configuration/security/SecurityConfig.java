@@ -2,9 +2,7 @@ package com.lab.authapi.authapi.configuration.security;
 
 import com.lab.authapi.authapi.repository.UserRepo;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -93,15 +91,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // Swagger endpoints must be publicly accessible
                 .antMatchers("/").permitAll()
-                .antMatchers( "/v3/api-docs.yaml").permitAll()
-                .antMatchers( "/v3/api-docs/**").permitAll()
-                .antMatchers(  "/swagger-ui/**").permitAll()
+                .antMatchers("/v3/api-docs.yaml").permitAll()
+                .antMatchers("/v3/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
                 // Our public endpoints
-                .antMatchers("/api/public/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/author/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/author/search").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/book/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/book/search").permitAll()
+                .antMatchers("/v1.0/auth/**").permitAll()
                 // Our private endpoints
                 .anyRequest().authenticated();
 
@@ -123,7 +117,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Expose authentication manager bean
-    @Override @Bean
+    @Override
+    @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }

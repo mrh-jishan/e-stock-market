@@ -1,8 +1,8 @@
-package com.lab.authapi.authapi.domain.mapper;
+package com.lab.authapi.authapi.mapper;
 
 
-import com.lab.authapi.authapi.domain.dto.UserView;
-import com.lab.authapi.authapi.domain.model.User;
+import com.lab.authapi.authapi.dto.UserView;
+import com.lab.authapi.authapi.model.User;
 import com.lab.authapi.authapi.repository.UserRepo;
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;

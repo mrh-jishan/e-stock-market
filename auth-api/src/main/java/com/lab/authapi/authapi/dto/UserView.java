@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.dto;
+package com.lab.authapi.authapi.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
 public class UserView {
 
     private String id;
-
+    private String email;
     private String username;
     private String fullName;
 

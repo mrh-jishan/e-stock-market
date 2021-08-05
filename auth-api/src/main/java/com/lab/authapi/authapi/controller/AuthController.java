@@ -1,11 +1,11 @@
-package com.lab.authapi.authapi.api;
+package com.lab.authapi.authapi.controller;
 
 import com.lab.authapi.authapi.configuration.security.JwtTokenUtil;
-import com.lab.authapi.authapi.domain.dto.AuthRequest;
-import com.lab.authapi.authapi.domain.dto.CreateUserRequest;
-import com.lab.authapi.authapi.domain.dto.UserView;
-import com.lab.authapi.authapi.domain.mapper.UserViewMapper;
-import com.lab.authapi.authapi.domain.model.User;
+import com.lab.authapi.authapi.dto.AuthRequest;
+import com.lab.authapi.authapi.dto.CreateUserRequest;
+import com.lab.authapi.authapi.dto.UserView;
+import com.lab.authapi.authapi.mapper.UserViewMapper;
+import com.lab.authapi.authapi.model.User;
 import com.lab.authapi.authapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "api/public")
 @RequiredArgsConstructor
-public class AuthApi {
+@RequestMapping("/v1.0/auth")
+public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserViewMapper userViewMapper;
     private final UserService userService;
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<UserView> login(@RequestBody @Valid AuthRequest request) {
         try {
             Authentication authenticate = authenticationManager
@@ -48,9 +48,8 @@ public class AuthApi {
         }
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public UserView register(@RequestBody @Valid CreateUserRequest request) {
         return userService.create(request);
     }
-
 }

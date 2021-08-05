@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.exception;
+package com.lab.authapi.authapi.exception;
 
 import org.bson.types.ObjectId;
 

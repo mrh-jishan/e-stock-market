@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.configuration.json.serializer;
+package com.lab.authapi.authapi.configuration.serializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

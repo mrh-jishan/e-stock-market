@@ -1,10 +1,10 @@
-package com.lab.authapi.authapi.domain.mapper;
+package com.lab.authapi.authapi.mapper;
 
 
-import com.lab.authapi.authapi.domain.dto.CreateUserRequest;
-import com.lab.authapi.authapi.domain.dto.UpdateUserRequest;
-import com.lab.authapi.authapi.domain.model.Role;
-import com.lab.authapi.authapi.domain.model.User;
+import com.lab.authapi.authapi.dto.CreateUserRequest;
+import com.lab.authapi.authapi.dto.UpdateUserRequest;
+import com.lab.authapi.authapi.model.Role;
+import com.lab.authapi.authapi.model.User;
 import org.mapstruct.*;
 
 import static java.util.stream.Collectors.toSet;

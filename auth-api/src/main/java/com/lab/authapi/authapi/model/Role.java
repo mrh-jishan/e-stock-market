@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.model;
+package com.lab.authapi.authapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 public class Role implements GrantedAuthority {
 
     public static final String USER_ADMIN = "USER_ADMIN";
-    public static final String AUTHOR_ADMIN = "AUTHOR_ADMIN";
-    public static final String BOOK_ADMIN = "BOOK_ADMIN";
 
     private String authority;
 

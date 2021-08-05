@@ -1,7 +1,7 @@
 package com.lab.authapi.authapi.configuration;
 
 
-import com.lab.authapi.authapi.domain.model.User;
+import com.lab.authapi.authapi.model.User;
 import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

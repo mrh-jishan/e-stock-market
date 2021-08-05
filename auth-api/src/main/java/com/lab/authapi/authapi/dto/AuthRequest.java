@@ -1,14 +1,12 @@
-package com.lab.authapi.authapi.domain.dto;
+package com.lab.authapi.authapi.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Data
 public class AuthRequest {
-
-    @NotNull @Email
+    @NotNull
     private String username;
     @NotNull
     private String password;

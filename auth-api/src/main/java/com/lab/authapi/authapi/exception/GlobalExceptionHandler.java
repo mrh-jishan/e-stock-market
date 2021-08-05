@@ -1,6 +1,6 @@
-package com.lab.authapi.authapi.configuration;
+package com.lab.authapi.authapi.exception;
 
-import com.lab.authapi.authapi.domain.exception.NotFoundException;
+import com.lab.authapi.authapi.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

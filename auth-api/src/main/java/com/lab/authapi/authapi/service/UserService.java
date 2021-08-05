@@ -1,10 +1,10 @@
 package com.lab.authapi.authapi.service;
 
 
-import com.lab.authapi.authapi.domain.dto.*;
-import com.lab.authapi.authapi.domain.mapper.UserEditMapper;
-import com.lab.authapi.authapi.domain.mapper.UserViewMapper;
-import com.lab.authapi.authapi.domain.model.User;
+import com.lab.authapi.authapi.dto.*;
+import com.lab.authapi.authapi.mapper.UserEditMapper;
+import com.lab.authapi.authapi.mapper.UserViewMapper;
+import com.lab.authapi.authapi.model.User;
 import com.lab.authapi.authapi.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
@@ -106,4 +106,8 @@ public class UserService implements UserDetailsService {
         return userViewMapper.toUserView(users);
     }
 
+    public List<UserView> allUsers() {
+        List<User> users = userRepo.findAll();
+        return userViewMapper.toUserView(users);
+    }
 }

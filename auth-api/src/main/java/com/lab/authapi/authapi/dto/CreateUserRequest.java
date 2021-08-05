@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.dto;
+package com.lab.authapi.authapi.dto;
 
 import lombok.Data;
 
@@ -9,8 +9,11 @@ import java.util.Set;
 @Data
 public class CreateUserRequest {
 
-    @NotBlank @Email
+    @NotBlank
     private String username;
+    @NotBlank
+    @Email
+    private String email;
     @NotBlank
     private String fullName;
     @NotBlank

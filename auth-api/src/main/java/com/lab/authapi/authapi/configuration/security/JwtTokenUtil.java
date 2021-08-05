@@ -1,7 +1,7 @@
 package com.lab.authapi.authapi.configuration.security;
 
 
-import com.lab.authapi.authapi.domain.model.User;
+import com.lab.authapi.authapi.model.User;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -13,8 +13,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenUtil {
 
-    private final String jwtSecret = "zdtlD3JK56m6wTTgsNFhqzjqP";
-    private final String jwtIssuer = "example.io";
+    private final String jwtSecret = "xdtlD3JK56m6wTTgsNFhqzjqP";
+    private final String jwtIssuer = "stock-market-app.com";
 
     private final Logger logger;
 

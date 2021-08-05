@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.domain.model;
+package com.lab.authapi.authapi.model;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document(collection = "users") @Data
+@Document(collection = "users")
+@Data
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -27,8 +28,12 @@ public class User implements UserDetails, Serializable {
 
     private boolean enabled = true;
 
-    @Indexed(unique=true)
+    @Indexed(unique = true)
     private String username;
+
+    @Indexed(unique = true)
+    private String email;
+
     private String password;
     @Indexed
     private String fullName;
