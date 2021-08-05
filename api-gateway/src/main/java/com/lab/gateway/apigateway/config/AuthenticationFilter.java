@@ -1,6 +1,8 @@
 package com.lab.gateway.apigateway.config;
 
 import io.jsonwebtoken.Claims;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -15,7 +17,6 @@ import reactor.core.publisher.Mono;
 @RefreshScope
 @Component
 public class AuthenticationFilter implements GatewayFilter {
-
     @Autowired
     private RouterValidator routerValidator;
 
@@ -52,11 +53,12 @@ public class AuthenticationFilter implements GatewayFilter {
     }
 
     private String getAuthHeader(ServerHttpRequest request) {
-        return request.getHeaders().getOrEmpty("Authorization").get(0);
+        return request.getHeaders().getOrEmpty("Authorization").get(0).split(" ")[1].trim();
     }
 
     private boolean isAuthMissing(ServerHttpRequest request) {
-        return !request.getHeaders().containsKey("Authorization");
+        return !request.getHeaders().containsKey("Authorization") ||
+                !request.getHeaders().getOrEmpty("Authorization").get(0).startsWith("Bearer ");
     }
 
     private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
