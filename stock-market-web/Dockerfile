@@ -1,17 +1,12 @@
-FROM node:latest as build
-
-WORKDIR /usr/local/app
-
-COPY ./ /usr/local/app/
-
+FROM node:12.7-alpine AS build
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
 RUN npm install
-RUN npm run build
+COPY . .
+RUN npm run build --prod
 
 
-# Stage 2
-
-FROM nginx:latest
-
-COPY --from=build /usr/local/app/dist/stock-market-web /usr/share/nginx/html
-
+FROM nginx:1.17.1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/stock-market-web /usr/share/nginx/html
 EXPOSE 80
