@@ -1,23 +1,51 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:latest
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
     ports:
-      - "3306:3306"
+    - 9090:80
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql1234"
+      MYSQL_ROOT_USERNAME: "root"
+      PMA_HOST: "mysql"
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:latest
+    restart: always
+    ports:
+      - 3306:3306
+      - 33060:33060
     volumes:
-      - ./config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+      - ./config/mysql/conf.d:/etc/mysql/conf.d
       - ./data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "mysql1234"
       MYSQL_ROOT_USERNAME: "root"
+      MYSQL_DATABASE: "marketapp"
       TZ: 'Asia/Hong_Kong'
 
-  mongo:
+  mongodb:
     image: mongo:latest
+    restart: always
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
       - ./data/mongo:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - 9091:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      - mongodb
 
   discovery-service:
     build:
@@ -34,12 +62,14 @@ services:
     build:
       context: ./api-gateway
     image: com.lab.java/microservice-docker-api-gateway:0.0.1-SNAPSHOT
+    environment:
+      EUREKA_SERVER: http://discovery-service:8761/eureka
     ports:
       - 8080:8080
     depends_on:
       - discovery-service
-      - mysql
-      - mongo
+      - mysqldb
+      - mongodb
       - auth-api-service
       - market-api-service
       - stock-api-service
@@ -48,29 +78,16 @@ services:
         max-size: "50m"
         max-file: "3"
 
-#  config:
-#    image: com.lab.java/microservice-docker-docker-config:0.0.1-SNAPSHOT
-#    volumes:
-#      - ./config-data:/var/config-data
-#    environment:
-#      - JAVA_OPTS=
-#         -DEUREKA_SERVER=http://discovery:8761/eureka
-#         -Dspring.cloud.config.server.native.searchLocations=/var/config-data
-#    depends_on:
-#      - discovery
-#    ports:
-#      - 8888:8888
-
   stock-api-service:
     build:
       context: ./stock-api
     image: com.lab.java/microservice-docker-stock-api:0.0.1-SNAPSHOT
     environment:
-      - JAVA_OPTS=
-        -DEUREKA_SERVER=http://discovery-service:8761/eureka
+      EUREKA_SERVER: http://discovery-service:8761/eureka
+      MONGO_HOST: "mongodb"
     depends_on:
       - discovery-service
-      - mongo
+      - mongodb
     ports:
     - 8082:8082
     logging:
@@ -83,11 +100,15 @@ services:
       context: ./market-api
     image: com.lab.java/microservice-docker-market-api:0.0.1-SNAPSHOT
     environment:
-      - JAVA_OPTS=
-        -DEUREKA_SERVER=http://discovery-service:8761/eureka
+      EUREKA_SERVER: http://discovery-service:8761/eureka
+      MYSQL_HOST: "mysqldb"
+      MYSQL_USERNAME: "root"
+      MYSQL_PASSWORD: "mysql1234"
+      MYSQL_DATABASE: "marketapp"
+      MYSQL_PORT: "3306"
     depends_on:
       - discovery-service
-      - mysql
+      - mysqldb
     ports:
     - 8081:8081
     logging:
@@ -100,11 +121,11 @@ services:
       context: ./auth-api
     image: com.lab.java/microservice-docker-auth-api:0.0.1-SNAPSHOT
     environment:
-      - JAVA_OPTS=
-        -DEUREKA_SERVER=http://discovery-service:8761/eureka
+      EUREKA_SERVER: http://discovery-service:8761/eureka
+      MONGO_HOST: "mongodb"
     depends_on:
       - discovery-service
-      - mongo
+      - mongodb
     ports:
       - 8083:8083
     logging:
