@@ -1,5 +1,24 @@
 version: '3'
 services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql1234"
+      MYSQL_ROOT_USERNAME: "root"
+      TZ: 'Asia/Hong_Kong'
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
+
   discovery-service:
     build:
       context: ./discovery-service
@@ -19,6 +38,11 @@ services:
       - 8080:8080
     depends_on:
       - discovery-service
+      - mysql
+      - mongo
+      - auth-api-service
+      - market-api-service
+      - stock-api-service
     logging:
       options:
         max-size: "50m"
@@ -46,7 +70,7 @@ services:
         -DEUREKA_SERVER=http://discovery-service:8761/eureka
     depends_on:
       - discovery-service
-      - gateway-service
+      - mongo
     ports:
     - 8082:8082
     logging:
@@ -63,7 +87,7 @@ services:
         -DEUREKA_SERVER=http://discovery-service:8761/eureka
     depends_on:
       - discovery-service
-      - gateway-service
+      - mysql
     ports:
     - 8081:8081
     logging:
@@ -80,7 +104,7 @@ services:
         -DEUREKA_SERVER=http://discovery-service:8761/eureka
     depends_on:
       - discovery-service
-      - gateway-service
+      - mongo
     ports:
       - 8083:8083
     logging:
