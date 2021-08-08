@@ -1,0 +1,101 @@
+version: '3'
+services:
+  discovery-service:
+    build:
+      context: ./discovery-service
+    image: com.lab.java/microservice-docker-discovery-service:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  gateway-service:
+    build:
+      context: ./api-gateway
+    image: com.lab.java/microservice-docker-api-gateway:0.0.1-SNAPSHOT
+    ports:
+      - 8080:8080
+    depends_on:
+      - discovery-service
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+#  config:
+#    image: com.lab.java/microservice-docker-docker-config:0.0.1-SNAPSHOT
+#    volumes:
+#      - ./config-data:/var/config-data
+#    environment:
+#      - JAVA_OPTS=
+#         -DEUREKA_SERVER=http://discovery:8761/eureka
+#         -Dspring.cloud.config.server.native.searchLocations=/var/config-data
+#    depends_on:
+#      - discovery
+#    ports:
+#      - 8888:8888
+
+  stock-api-service:
+    build:
+      context: ./stock-api
+    image: com.lab.java/microservice-docker-stock-api:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+      - gateway-service
+    ports:
+    - 8082:8082
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  market-api-service:
+    build:
+      context: ./market-api
+    image: com.lab.java/microservice-docker-market-api:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+      - gateway-service
+    ports:
+    - 8081:8081
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  auth-api-service:
+    build:
+      context: ./auth-api
+    image: com.lab.java/microservice-docker-auth-api:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+      - gateway-service
+    ports:
+      - 8083:8083
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+#  web-ui:
+#    image: com.lab.java/microservice-lab-web-ui:0.0.1-SNAPSHOT
+#    environment:
+#      - JAVA_OPTS=
+#        -DEUREKA_SERVER=http://discovery:8761/eureka
+#    restart: on-failure
+#    depends_on:
+#      - discovery
+#      - config
+#    ports:
+#      - 8080:8080

@@ -73,7 +73,7 @@ class CompanyControllerTest {
 
     @Test
     void deleteCompany() throws Exception {
-        mockMvc.perform(delete("/v1.0/market/delete/{companyCode}", "xxx1")
+        mockMvc.perform(delete("/v1.0/market/company/delete/{companyCode}", "xxx1")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andDo(print())

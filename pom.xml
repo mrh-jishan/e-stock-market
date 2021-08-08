@@ -13,15 +13,21 @@
     <groupId>com.lab.java</groupId>
     <artifactId>java-lab</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <name>java-lab</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
         <java.version>11</java.version>
     </properties>
-<!--    <modules>-->
-<!--        <module>api-gateway</module>-->
-<!--        <module>discovery-service</module>-->
-<!--        <module>market-api</module>-->
-<!--        <module>stock-api</module>-->
-<!--    </modules>-->
+
+   <modules>
+       <module>api-gateway</module>
+       <module>discovery-service</module>
+       <module>market-api</module>
+       <module>stock-api</module>
+       <module>auth-api</module>
+    </modules>
+
 </project>

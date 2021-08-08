@@ -10,8 +10,11 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
-    private String secret;
+    private final String secret;
+
+    public JwtUtil(@Value("${jwt.secret}") String secret) {
+        this.secret = secret;
+    }
 
     public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
