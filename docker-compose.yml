@@ -133,14 +133,11 @@ services:
         max-size: "50m"
         max-file: "3"
 
-#  web-ui:
-#    image: com.lab.java/microservice-lab-web-ui:0.0.1-SNAPSHOT
-#    environment:
-#      - JAVA_OPTS=
-#        -DEUREKA_SERVER=http://discovery:8761/eureka
-#    restart: on-failure
-#    depends_on:
-#      - discovery
-#      - config
-#    ports:
-#      - 8080:8080
+  web-ui:
+    build:
+      context: ./stock-market-web
+    image: com.lab.java/microservice-docker-stock-market-web:0.0.1-SNAPSHOT
+    depends_on:
+      - gateway-service
+    ports:
+      - 8888:80
