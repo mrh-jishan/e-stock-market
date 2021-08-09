@@ -10,16 +10,16 @@ spring:
         wiretap: true
       httpserver:
         wiretap: true
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedHeaders: "*"
-            allowedOrigins: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedHeaders: "*"
+#            allowedOrigins: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
 #      routes:
 #        - id: CompanyModule
 #          uri: lb://MARKET-API/

@@ -4,9 +4,19 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AddCompanyComponent} from "./add-company/add-company.component";
 import {AddStockComponent} from "./add-stock/add-stock.component";
 import {ListCompanyComponent} from "./list-company/list-company.component";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
 
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
   {
     path: 'dashboard',
     component: DashboardComponent
@@ -25,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/dashboard'
+    redirectTo: '/login'
   }
 ];
 

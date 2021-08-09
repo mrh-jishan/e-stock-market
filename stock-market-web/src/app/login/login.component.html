@@ -1,0 +1,19 @@
+<mat-card fxLayout="row"
+          fxLayoutAlign="center center">
+  <form [formGroup]="loginForm" fxLayout="column" fxFlex="30">
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username" placeholder="Ex. username"/>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Ex. password"/>
+    </mat-form-field>
+
+    <p>Don't you have an account? <a routerLink="/register">Register Here</a></p>
+
+    <button mat-raised-button color="accent" [disabled]="loginForm.invalid" (click)="loginSubmit()">Login</button>
+  </form>
+</mat-card>

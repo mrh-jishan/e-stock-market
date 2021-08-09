@@ -21,6 +21,8 @@ import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.List;
+
 import static java.lang.String.format;
 
 @EnableWebSecurity
@@ -63,8 +65,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+
         // Enable CORS and disable CSRF
-        http = http.cors().and().csrf().disable();
+        http = http.cors().configurationSource(request -> corsConfiguration)
+                .and().csrf().disable();
 
         // Set session management to stateless
         http = http
@@ -94,22 +105,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v1.0/auth/**").permitAll()
                 // Our private endpoints
                 .anyRequest().authenticated();
+        ;
 
         // Add JWT token filter
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-
-    // Used by spring security if CORS is enabled.
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
     }
 
     // Expose authentication manager bean

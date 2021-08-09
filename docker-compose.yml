@@ -42,15 +42,15 @@ services:
     ports:
     - 9091:8081
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_SERVER: "mongodb"
+      ME_CONFIG_MONGODB_PORT: "27017"
     depends_on:
       - mongodb
 
   discovery-service:
     build:
       context: ./discovery-service
-    image: com.lab.java/microservice-docker-discovery-service:0.0.1-SNAPSHOT
+    image: rbn1/stock-ms-discovery-service:0.0.1-SNAPSHOT
     ports:
       - 8761:8761
     logging:
@@ -61,7 +61,7 @@ services:
   gateway-service:
     build:
       context: ./api-gateway
-    image: com.lab.java/microservice-docker-api-gateway:0.0.1-SNAPSHOT
+    image: rbn1/stock-ms-api-gateway:0.0.1-SNAPSHOT
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
     ports:
@@ -81,7 +81,7 @@ services:
   stock-api-service:
     build:
       context: ./stock-api
-    image: com.lab.java/microservice-docker-stock-api:0.0.1-SNAPSHOT
+    image: rbn1/stock-ms-stock-api:0.0.1-SNAPSHOT
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
       MONGO_HOST: "mongodb"
@@ -98,7 +98,7 @@ services:
   market-api-service:
     build:
       context: ./market-api
-    image: com.lab.java/microservice-docker-market-api:0.0.1-SNAPSHOT
+    image: rbn1/stock-ms-market-api:0.0.1-SNAPSHOT
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
       MYSQL_HOST: "mysqldb"
@@ -119,7 +119,7 @@ services:
   auth-api-service:
     build:
       context: ./auth-api
-    image: com.lab.java/microservice-docker-auth-api:0.0.1-SNAPSHOT
+    image: rbn1/stock-ms-auth-api:0.0.1-SNAPSHOT
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
       MONGO_HOST: "mongodb"
@@ -133,11 +133,11 @@ services:
         max-size: "50m"
         max-file: "3"
 
-  web-ui:
-    build:
-      context: ./stock-market-web
-    image: com.lab.java/microservice-docker-stock-market-web:0.0.1-SNAPSHOT
-    depends_on:
-      - gateway-service
-    ports:
-      - 8888:80
+#  web-ui:
+#    build:
+#      context: ./stock-market-web
+#    image: rbn1/stock-ms-stock-market-web:0.0.1-SNAPSHOT
+#    depends_on:
+#      - gateway-service
+#    ports:
+#      - 8888:80

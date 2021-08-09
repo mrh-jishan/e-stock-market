@@ -6,9 +6,41 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class AppService {
 
-  headers = new HttpHeaders({'Content-Type': 'application/json'});
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
 
   constructor(private http: HttpClient) {
+  }
+
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  public isAuthenticated(): boolean {
+    // get the token
+    const token = this.getToken();
+    // return a boolean reflecting
+    // whether or not the token is expired
+    // return tokenNotExpired(null, token);
+    return false;
+  }
+
+  logout() {
+
+  }
+
+  login(body) {
+    return this.http.post(`http://localhost:8080/api/v1.0/auth/login`, body, {
+      headers: this.headers,
+      observe: "response",
+      responseType: "json",
+      withCredentials: true
+    })
+  }
+
+  register(body) {
+    return this.http.post('http://localhost:8080/api/v1.0/auth/register', body, {headers: this.headers})
   }
 
   createCompany(body) {
@@ -30,4 +62,5 @@ export class AppService {
   getFilterStock(companyCode, startDate, endDate) {
     return this.http.get(`http://localhost:8080/api/v1.0/market/stock/get/${companyCode}/${startDate}/${endDate}`, {headers: this.headers})
   }
+
 }

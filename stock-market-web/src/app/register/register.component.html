@@ -1,0 +1,35 @@
+<mat-card fxLayout="row"
+          fxLayoutAlign="center center">
+  <form [formGroup]="registerForm" fxLayout="column" fxFlex="30">
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Full Name</mat-label>
+      <input matInput type="text" formControlName="fullName" placeholder="Ex. Mr. XXX"/>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username" placeholder="Ex. username"/>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Ex. password"/>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" formControlName="rePassword" placeholder="Ex. password"/>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="column" fxFlex="50">
+      <mat-label>Email Address</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="Ex. john.doe@example.com"/>
+    </mat-form-field>
+
+    <p>Already have an account? <a routerLink="/login">Login Here</a></p>
+
+    <button mat-raised-button color="accent" [disabled]="registerForm.invalid" (click)="registerSubmit()">Register</button>
+
+  </form>
+</mat-card>
