@@ -20,6 +20,7 @@ spring:
 #              - POST
 #              - PUT
 #              - DELETE
+#              - OPTIONS
 #      routes:
 #        - id: CompanyModule
 #          uri: lb://MARKET-API/
@@ -33,6 +34,20 @@ spring:
       discovery:
         locator:
           enabled: true
+#      default-filters:
+#        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Origin Content-Type, Accept
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "localhost:4200"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#              - OPTIONS
+#            allowedHeaders: "Access-Control-Allow-Credentials, Access-Control-Allow-Origin, Origin, Content-Type, Accept"
+#            allowCredentials: true
 
 management:
   endpoint:

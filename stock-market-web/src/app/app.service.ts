@@ -7,7 +7,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class AppService {
 
   headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
   });
 
   constructor(private http: HttpClient) {
@@ -33,14 +34,19 @@ export class AppService {
   login(body) {
     return this.http.post(`http://localhost:8080/api/v1.0/auth/login`, body, {
       headers: this.headers,
-      observe: "response",
       responseType: "json",
+      observe: "response",
       withCredentials: true
     })
   }
 
   register(body) {
-    return this.http.post('http://localhost:8080/api/v1.0/auth/register', body, {headers: this.headers})
+    return this.http.post('http://localhost:8080/api/v1.0/auth/register', body, {
+      headers: this.headers,
+      observe: "response",
+      responseType: "json",
+      withCredentials: true
+    })
   }
 
   createCompany(body) {
