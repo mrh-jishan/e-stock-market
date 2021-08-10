@@ -1,7 +1,8 @@
 package com.lab.gateway.apigateway.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,8 @@ import java.util.Date;
 public class JwtUtil {
 
     private final String secret;
+
+    private final Logger LOG = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     public JwtUtil(@Value("${jwt.secret}") String secret) {
         this.secret = secret;
@@ -27,7 +30,21 @@ public class JwtUtil {
         return this.getAllClaimsFromToken(token).getExpiration().before(new Date());
     }
 
-    public boolean isInvalid(String token) {
-        return this.isTokenExpired(token);
+    public boolean validate(String token) {
+        try {
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            return true;
+        } catch (SignatureException ex) {
+            LOG.error("Invalid JWT signature - {}", ex.getMessage());
+        } catch (MalformedJwtException ex) {
+            LOG.error("Invalid JWT token - {}", ex.getMessage());
+        } catch (ExpiredJwtException ex) {
+            LOG.error("Expired JWT token - {}", ex.getMessage());
+        } catch (UnsupportedJwtException ex) {
+            LOG.error("Unsupported JWT token - {}", ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            LOG.error("JWT claims string is empty - {}", ex.getMessage());
+        }
+        return false;
     }
 }

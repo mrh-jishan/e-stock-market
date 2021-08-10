@@ -31,9 +31,8 @@ export class LoginComponent implements OnInit {
   loginSubmit() {
     this.appService.login(this.loginForm.value)
       .subscribe((res: HttpResponse<any>) => {
-        console.log('res: ', res)
-        console.log('header: ', res.headers.get("Authorization"))
-        // this.router.navigateByUrl('/dashboard');
+        this.appService.changeFlag(true);
+        this.router.navigateByUrl('/dashboard');
       }, error => {
         console.log('err: ', error)
         this.dialog.open(DialogComponent, {

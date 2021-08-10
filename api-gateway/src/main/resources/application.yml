@@ -10,45 +10,9 @@ spring:
         wiretap: true
       httpserver:
         wiretap: true
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedHeaders: "*"
-#            allowedOrigins: "*"
-#            allowedMethods:
-#              - GET
-#              - POST
-#              - PUT
-#              - DELETE
-#              - OPTIONS
-#      routes:
-#        - id: CompanyModule
-#          uri: lb://MARKET-API/
-#          predicates:
-#            - Path=/api/v1.0/market/company/**
-#
-#        - id: StockModule
-#          uri: lb://STOCK-API/
-#          predicates:
-#            - Path=/api/v1.0/market/stock/**
       discovery:
         locator:
           enabled: true
-#      default-filters:
-#        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Origin Content-Type, Accept
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: "localhost:4200"
-#            allowedMethods:
-#              - GET
-#              - POST
-#              - PUT
-#              - DELETE
-#              - OPTIONS
-#            allowedHeaders: "Access-Control-Allow-Credentials, Access-Control-Allow-Origin, Origin, Content-Type, Accept"
-#            allowCredentials: true
-
 management:
   endpoint:
     health:

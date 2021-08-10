@@ -1,11 +1,13 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="isLogged">
   <a mat-button color="accent" routerLink="/dashboard">eStock Market</a>
   <a mat-button routerLink="/add-company">Add Company</a>
   <a mat-button routerLink="/add-stock">Add Add Stock</a>
   <a mat-button routerLink="/list-company">List All Companies</a>
+
+  <a mat-button (click)="logout()">Logout</a>
 </mat-toolbar>
 
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="!isLogged">
   <a mat-button routerLink="/login">Login</a>
   <a mat-button routerLink="/register">Register</a>
 </mat-toolbar>

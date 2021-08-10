@@ -1,10 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
+
+  private isLogged = new BehaviorSubject<boolean>(false);
+  currentFlag = this.isLogged.asObservable();
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -12,23 +16,27 @@ export class AppService {
   });
 
   constructor(private http: HttpClient) {
+    this.isLogged.next(this.isAuthenticated())
+  }
+
+  changeFlag(flag: boolean) {
+    this.isLogged.next(flag)
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 
   public getToken(): string {
     return localStorage.getItem('token');
   }
 
-  public isAuthenticated(): boolean {
-    // get the token
-    const token = this.getToken();
-    // return a boolean reflecting
-    // whether or not the token is expired
-    // return tokenNotExpired(null, token);
-    return false;
+  public setToken(token) {
+    localStorage.setItem('token', token);
   }
 
-  logout() {
-
+  clearToken() {
+    localStorage.clear();
   }
 
   login(body) {

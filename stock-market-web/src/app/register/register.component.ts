@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this._fb.group({
       fullName: ['robin-hassan', Validators.compose([Validators.required, Validators.minLength(6)])],
-      username: ['rbn-'+new Date().getTime(), Validators.compose([Validators.required, Validators.minLength(6)])],
+      username: ['rbn-' + new Date().getTime(), Validators.compose([Validators.required, Validators.minLength(6)])],
       password: ['password123', Validators.compose([Validators.required, Validators.minLength(6)])],
       rePassword: ['password123', Validators.compose([Validators.required, Validators.minLength(6)])],
       email: ['password123@gmail.com', Validators.compose([Validators.required, Validators.email, Validators.minLength(6)])]
@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
 
   registerSubmit() {
     this.appService.register(this.registerForm.value).subscribe(res => {
-      console.log('res: ', res)
       this.router.navigateByUrl('/login');
     }, error => {
       console.log('err: ', error)

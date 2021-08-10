@@ -1,6 +1,8 @@
 package com.lab.gateway.apigateway.config;
 
 import io.jsonwebtoken.Claims;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -21,6 +23,8 @@ public class AuthenticationFilter implements GatewayFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
+    private final Logger LOG = LoggerFactory.getLogger(AuthenticationFilter.class);
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -31,7 +35,7 @@ public class AuthenticationFilter implements GatewayFilter {
 
             final String token = this.getAuthHeader(request);
 
-            if (jwtUtil.isInvalid(token))
+            if (jwtUtil.validate(token))
                 return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
 
             this.populateRequestWithHeaders(exchange, token);
@@ -45,6 +49,7 @@ public class AuthenticationFilter implements GatewayFilter {
     private Mono<Void> onError(ServerWebExchange exchange,
                                String err,
                                HttpStatus httpStatus) {
+        LOG.info(String.format("Error: [%s] Status code: [%d]", err, httpStatus.value()));
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
         return response.setComplete();

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
+  HttpHandler, HttpHeaders,
   HttpInterceptor,
   HttpRequest,
   HttpResponse
@@ -22,18 +22,21 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>,
             next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.appService.getToken();
-    // if (token) {
-    //   request = request.clone({
-    //     setHeaders: {
-    //       Authorization: `Bearer ${token}`
-    //     }
-    //   });
-    // }
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
 
     return next.handle(request)
       .pipe(tap((res: HttpResponse<any>) => {
-          console.log('res in intercept', res);
-          console.log('header in intercept: ', res.headers)
+          const headers = res.headers;
+          if (headers instanceof HttpHeaders && request.url.includes("/auth/login")) {
+            const token = headers.get('Authorization');
+            this.appService.setToken(token);
+          }
           return;
         },
         (err: any) => {
@@ -41,6 +44,7 @@ export class AuthInterceptor implements HttpInterceptor {
             if (err.status !== 401) {
               return;
             }
+            this.appService.clearToken();
             this.router.navigateByUrl('/login');
           }
         }));
