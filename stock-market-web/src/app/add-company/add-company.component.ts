@@ -13,7 +13,7 @@ import {DialogComponent} from "../common/dialog/dialog.component";
 export class AddCompanyComponent implements OnInit {
 
   addCompanyForm: FormGroup;
-   urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+  urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
 
   constructor(private _fb: FormBuilder,
@@ -27,7 +27,7 @@ export class AddCompanyComponent implements OnInit {
       code: ['', Validators.required],
       name: ['', Validators.required],
       ceo: ['', Validators.required],
-      turnover: ['', Validators.required],
+      turnover: ['', Validators.required, Validators.min(100000000)],
       website: ['', Validators.compose([Validators.required, Validators.pattern(this.urlRegex)])],
       exchangeCode: ['', Validators.required],
 
