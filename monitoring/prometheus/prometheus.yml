@@ -1,0 +1,47 @@
+global:
+  scrape_interval:   15s # By default, scrape targets every 15 seconds.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'bootifull-monitoring'
+
+scrape_configs:
+
+  - job_name: gateway-service
+    scrape_interval: 10s
+    metrics_path: '/actuator/prometheus'
+
+    static_configs:
+      - targets: ['gateway-service:8080']
+        labels:
+          application: 'gateway-service-stats'
+
+  - job_name:       'monitoring-demo'
+
+    # Override the global default and scrape targets from this job every 10 seconds.
+    scrape_interval: 10s
+    metrics_path: '/api/actuator/prometheus'
+
+    static_configs:
+
+      - targets: ['market-api-service:8081']
+        labels:
+          application: 'market-api-service-stats'
+
+      - targets: ['stock-api-service:8082']
+        labels:
+          application: 'stock-api-service-stats'
+
+      - targets: ['auth-api-service:8083']
+        labels:
+          application: 'auth-api-service-stats'
+
+
+
+  - job_name: 'prometheus'
+
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['localhost:9090']
