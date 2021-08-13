@@ -14,7 +14,6 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 @ToString
 @Document(collection = "Stock")
 public class StockEntity extends DateAudit implements Serializable {

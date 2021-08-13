@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.configuration.security;
+package com.lab.authapi.authapi.configuration;
 
 import com.lab.authapi.authapi.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import static java.util.Optional.ofNullable;
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUtil jwtUtil;
     private final UserRepo userRepo;
 
     @Override
@@ -39,14 +39,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         // Get jwt token and validate
         final String token = header.split(" ")[1].trim();
-        if (!jwtTokenUtil.validate(token)) {
+        if (!jwtUtil.validate(token)) {
             chain.doFilter(request, response);
             return;
         }
 
         // Get user identity and set it on the spring security context
         UserDetails userDetails = userRepo
-                .findByUsername(jwtTokenUtil.getUsername(token))
+                .findByUsername(jwtUtil.getUsername(token))
                 .orElse(null);
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

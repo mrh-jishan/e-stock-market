@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "code": "xxx",
+    "name": "mr x",
+    "ceo": "test ceo name",
+    "turnover": 100000000,
+    "website": "https://example.com",
+    "exchangeCode": "GOG"
+  },
+  {
+    "id": 2,
+    "code": "xxx2",
+    "name": "mr x2",
+    "ceo": "test ceo name2",
+    "turnover": 200000000,
+    "website": "https://example2.com",
+    "exchangeCode": "GOG2"
+  },
+  {
+    "id": 3,
+    "code": "xxx3",
+    "name": "mr x3",
+    "ceo": "test ceo name3",
+    "turnover": 300000000,
+    "website": "https://example3.com",
+    "exchangeCode": "GOG3"
+  }
+]

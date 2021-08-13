@@ -1,12 +1,7 @@
-package com.lab.authapi.authapi.configuration.serializer;
+package com.lab.stockapi.stockapi.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import com.lab.authapi.authapi.configuration.serializer.LocalDateDeserializer;
-import com.lab.authapi.authapi.configuration.serializer.LocalDateSerializer;
-import com.lab.authapi.authapi.configuration.serializer.LocalDateTimeDeserializer;
-import com.lab.authapi.authapi.configuration.serializer.LocalDateTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ObjectIdMapper.class)
 public interface StockMapper {
     StockEntity map(String code, StockDto stockDto);
 

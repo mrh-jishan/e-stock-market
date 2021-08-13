@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.configuration.serializer;
+package com.lab.stockapi.stockapi.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

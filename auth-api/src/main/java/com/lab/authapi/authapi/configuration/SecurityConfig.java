@@ -1,4 +1,4 @@
-package com.lab.authapi.authapi.configuration.security;
+package com.lab.authapi.authapi.configuration;
 
 import com.lab.authapi.authapi.repository.UserRepo;
 import org.slf4j.Logger;

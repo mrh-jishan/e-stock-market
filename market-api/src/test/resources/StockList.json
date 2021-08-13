@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "code": "xxx",
+    "price": 1000,
+    "createdAt": "2021-05-05",
+    "updatedAt": "2021-05-05"
+  },
+  {
+    "id": 2,
+    "code": "xxx",
+    "price": 2000,
+    "createdAt": "2021-05-05",
+    "updatedAt": "2021-05-05"
+  },
+  {
+    "id": 3,
+    "code": "xxx",
+    "price": 3000,
+    "createdAt": "2021-05-05",
+    "updatedAt": "2021-05-05"
+  }
+]

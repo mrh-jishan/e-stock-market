@@ -21,13 +21,6 @@ public class User implements UserDetails, Serializable {
     @Id
     private ObjectId id;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;
-
-    private boolean enabled = true;
-
     @Indexed(unique = true)
     private String username;
 
@@ -35,9 +28,18 @@ public class User implements UserDetails, Serializable {
     private String email;
 
     private String password;
+
     @Indexed
     private String fullName;
     private Set<Role> authorities = new HashSet<>();
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime modifiedAt;
+
+    private boolean enabled = true;
 
     public User() {
     }

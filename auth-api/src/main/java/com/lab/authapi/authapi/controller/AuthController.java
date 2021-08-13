@@ -1,6 +1,6 @@
 package com.lab.authapi.authapi.controller;
 
-import com.lab.authapi.authapi.configuration.security.JwtTokenUtil;
+import com.lab.authapi.authapi.configuration.JwtUtil;
 import com.lab.authapi.authapi.dto.AuthRequest;
 import com.lab.authapi.authapi.dto.CreateUserRequest;
 import com.lab.authapi.authapi.dto.UserView;
@@ -28,7 +28,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUtil jwtUtil;
     private final UserViewMapper userViewMapper;
     private final UserService userService;
 
@@ -41,7 +41,7 @@ public class AuthController {
             User user = (User) authenticate.getPrincipal();
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.AUTHORIZATION, jwtTokenUtil.generateAccessToken(user))
+                    .header(HttpHeaders.AUTHORIZATION, jwtUtil.generateAccessToken(user))
                     .body(userViewMapper.toUserView(user));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
