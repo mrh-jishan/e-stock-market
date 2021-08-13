@@ -19,6 +19,8 @@ jobs:
           java-version: 11.0.4
       - name: Maven Package
         run: mvn -B clean package -DskipTests
+      - name: Maven Verify
+          run: mvn clean verify -DskipTests
 
   sonar:
     name: Test - SonarCloud Scan
@@ -33,7 +35,7 @@ jobs:
       - name: SonarCloud Scan
         run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           
   artifact:
     name: Publish - GitHub Packages
@@ -49,7 +51,7 @@ jobs:
       - name: Publish artifact on GitHub Packages
         run: mvn -B clean deploy -DskipTests
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
 
   docker:
