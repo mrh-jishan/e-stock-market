@@ -20,44 +20,44 @@ jobs:
       - name: Maven Package
         run: mvn -B clean package -DskipTests
       - name: Maven Verify
-          run: mvn clean verify -DskipTests
+        run: mvn clean verify -DskipTests
 
-  sonar:
-    name: Test - SonarCloud Scan
-    runs-on: ubuntu-18.04
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11.0.4
-      - name: SonarCloud Scan
-        run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+#  sonar:
+#    name: Test - SonarCloud Scan
+#    runs-on: ubuntu-18.04
+#
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 11.0.4
+#      - name: SonarCloud Scan
+#        run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           
-  artifact:
-    name: Publish - GitHub Packages
-    runs-on: ubuntu-18.04
-    needs: [test, sonar]
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11.0.4
-      - name: Publish artifact on GitHub Packages
-        run: mvn -B clean deploy -DskipTests
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+#  artifact:
+#    name: Publish - GitHub Packages
+#    runs-on: ubuntu-18.04
+#    needs: [test]
+#
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 11.0.4
+#      - name: Publish artifact on GitHub Packages
+#        run: mvn -B clean deploy -DskipTests
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
 
   docker:
     name: Publish - Docker Hub
     runs-on: ubuntu-18.04
-    needs: [test, sonar]
+    needs: [test]
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
 
@@ -65,7 +65,33 @@ jobs:
       - uses: actions/checkout@v1
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-      - name: Build Docker image
-        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+
+      - name: Build api-discovery Docker image
+        run: docker build -t rbn1/api-discovery:latest -t rbn1/api-discovery:${GITHUB_SHA::8} ./discovery-service
       - name: Publish Docker image
-        run: docker push $REPO
+        run: docker push rbn1/api-discovery
+
+      - name: Build api-gateway Docker image
+        run: docker build -t rbn1/api-gateway:latest -t rbn1/api-gateway:${GITHUB_SHA::8} ./api-gateway
+      - name: Publish Docker image
+        run: docker push rbn1/api-gateway
+
+      - name: Build auth-service Docker image
+        run: docker build -t rbn1/auth-api:latest -t rbn1/auth-api:${GITHUB_SHA::8} ./auth-api
+      - name: Publish Docker image
+        run: docker push rbn1/auth-api
+
+      - name: Build stock-service Docker image
+        run: docker build -t rbn1/stock-api:latest -t rbn1/stock-api:${GITHUB_SHA::8} ./stock-api
+      - name: Publish Docker image
+        run: docker push rbn1/stock-api
+
+      - name: Build market-service Docker image
+        run: docker build -t rbn1/market-api:latest -t rbn1/market-api:${GITHUB_SHA::8} ./market-api
+      - name: Publish Docker image
+        run: docker push rbn1/market-api
+
+      - name: Build web-ui Docker image
+        run: docker build -t rbn1/web-ui:latest -t rbn1/web-ui:${GITHUB_SHA::8} ./stock-market-web
+      - name: Publish Docker image
+        run: docker push rbn1/web-ui

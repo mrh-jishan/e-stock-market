@@ -1,0 +1,177 @@
+version: '3'
+services:
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+    - 9095:80
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql1234"
+      MYSQL_ROOT_USERNAME: "root"
+      PMA_HOST: "mysql"
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:latest
+    restart: always
+    ports:
+      - 3306:3306
+      - 33060:33060
+    volumes:
+      - ./config/mysql/conf.d:/etc/mysql/conf.d
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql1234"
+      MYSQL_ROOT_USERNAME: "root"
+      MYSQL_DATABASE: "marketapp"
+      TZ: 'Asia/Hong_Kong'
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - 9091:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: "mongodb"
+      ME_CONFIG_MONGODB_PORT: "27017"
+    depends_on:
+      - mongodb
+
+#  prometheus:
+#    image: prom/prometheus:v2.24.1
+#    container_name: 'prometheus'
+#    ports:
+#      - '9090:9090'
+#    volumes:
+#      - ./monitoring/prometheus/:/etc/prometheus/
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#
+#  grafana:
+#    image: grafana/grafana:5.4.3
+#    container_name: 'grafana'
+#    ports:
+#      - '3000:3000'
+#    volumes:
+#      - ./monitoring/grafana:/var/lib/grafana
+#      - ./monitoring/grafana/provisioning/:/etc/grafana/provisioning/
+#    env_file:
+#      - ./monitoring/grafana/config.monitoring
+#    depends_on:
+#      - prometheus
+
+  stock-market-service:
+    build:
+      context: .
+    image: rbn1/stock-ms-service:0.0.1-SNAPSHOT
+    ports:
+      - 8080:8080
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+#  discovery-service:
+#    build:
+#      context: ./discovery-service
+#    image: rbn1/stock-ms-discovery-service:0.0.1-SNAPSHOT
+#    ports:
+#      - 8761:8761
+#    logging:
+#      options:
+#        max-size: "50m"
+#        max-file: "3"
+
+#  gateway-service:
+#    build:
+#      context: ./api-gateway
+#    image: rbn1/stock-ms-api-gateway:0.0.1-SNAPSHOT
+#    environment:
+#      EUREKA_SERVER: http://discovery-service:8761/eureka
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - discovery-service
+#      - mysqldb
+#      - mongodb
+#      - auth-api-service
+#      - market-api-service
+#      - stock-api-service
+#    logging:
+#      options:
+#        max-size: "50m"
+#        max-file: "3"
+#
+#  stock-api-service:
+#    build:
+#      context: ./stock-api
+#    image: rbn1/stock-ms-stock-api:0.0.1-SNAPSHOT
+#    environment:
+#      EUREKA_SERVER: http://discovery-service:8761/eureka
+#      MONGO_HOST: "mongodb"
+#    depends_on:
+#      - discovery-service
+#      - mongodb
+#    ports:
+#    - 8082:8082
+#    logging:
+#      options:
+#        max-size: "50m"
+#        max-file: "3"
+#
+#  market-api-service:
+#    build:
+#      context: ./market-api
+#    image: rbn1/stock-ms-market-api:0.0.1-SNAPSHOT
+#    environment:
+#      EUREKA_SERVER: http://discovery-service:8761/eureka
+#      MYSQL_HOST: "mysqldb"
+#      MYSQL_USERNAME: "root"
+#      MYSQL_PASSWORD: "mysql1234"
+#      MYSQL_DATABASE: "marketapp"
+#      MYSQL_PORT: "3306"
+#    depends_on:
+#      - discovery-service
+#      - mysqldb
+#    ports:
+#    - 8081:8081
+#    logging:
+#      options:
+#        max-size: "50m"
+#        max-file: "3"
+#
+#  auth-api-service:
+#    build:
+#      context: ./auth-api
+#    image: rbn1/stock-ms-auth-api:0.0.1-SNAPSHOT
+#    environment:
+#      EUREKA_SERVER: http://discovery-service:8761/eureka
+#      MONGO_HOST: "mongodb"
+#    depends_on:
+#      - discovery-service
+#      - mongodb
+#    ports:
+#      - 8083:8083
+#    logging:
+#      options:
+#        max-size: "50m"
+#        max-file: "3"
+
+#  web-ui:
+#    build:
+#      context: ./stock-market-web
+#    image: rbn1/stock-ms-stock-market-web:0.0.1-SNAPSHOT
+#    depends_on:
+#      - gateway-service
+#    ports:
+#      - 8888:80

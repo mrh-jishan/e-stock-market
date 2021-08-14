@@ -1,0 +1,43 @@
+version: "3"
+services:
+  sonarqube:
+    image: sonarqube
+    restart: unless-stopped
+    environment:
+      - SONARQUBE_JDBC_USERNAME=sonarqube
+      - SONARQUBE_JDBC_PASSWORD=sonarpass
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://pgsqldb:5432/sonarqube
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    volumes:
+      - ./monitoring/sonarqube/conf:/opt/sonarqube/conf
+      - ./monitoring/sonarqube/data:/opt/sonarqube/data
+      - ./monitoring/sonarqube/extensions:/opt/sonarqube/extensions
+      - ./monitoring/sonarqube/plugins:/opt/sonarqube/lib/bundled-plugins
+    depends_on:
+      - pgsqldb
+
+  pgsqldb:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=sonarqube
+      - POSTGRES_PASSWORD=sonarpass
+      - POSTGRES_DB=sonarqube
+    volumes:
+      - ./monitoring/postgres:/var/lib/postgresql
+      - ./monitoring/postgres/data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    volumes:
+    - ./monitoring/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - pgsqldb

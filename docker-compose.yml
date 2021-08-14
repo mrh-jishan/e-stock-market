@@ -47,17 +47,6 @@ services:
     depends_on:
       - mongodb
 
-  discovery-service:
-    build:
-      context: ./discovery-service
-    image: rbn1/stock-ms-discovery-service:0.0.1-SNAPSHOT
-    ports:
-      - 8761:8761
-    logging:
-      options:
-        max-size: "50m"
-        max-file: "3"
-
   prometheus:
     image: prom/prometheus:v2.24.1
     container_name: 'prometheus'
@@ -81,10 +70,21 @@ services:
     depends_on:
       - prometheus
 
+  discovery-service:
+    build:
+      context: ./discovery-service
+    image: rbn1/api-discovery:latest
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "3"
+
   gateway-service:
     build:
       context: ./api-gateway
-    image: rbn1/stock-ms-api-gateway:0.0.1-SNAPSHOT
+    image: rbn1/api-gateway:latest
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
     ports:
@@ -104,7 +104,7 @@ services:
   stock-api-service:
     build:
       context: ./stock-api
-    image: rbn1/stock-ms-stock-api:0.0.1-SNAPSHOT
+    image: rbn1/stock-api:latest
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
       MONGO_HOST: "mongodb"
@@ -121,7 +121,7 @@ services:
   market-api-service:
     build:
       context: ./market-api
-    image: rbn1/stock-ms-market-api:0.0.1-SNAPSHOT
+    image: rbn1/market-api:latest
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
       MYSQL_HOST: "mysqldb"
@@ -142,7 +142,7 @@ services:
   auth-api-service:
     build:
       context: ./auth-api
-    image: rbn1/stock-ms-auth-api:0.0.1-SNAPSHOT
+    image: rbn1/auth-api:latest
     environment:
       EUREKA_SERVER: http://discovery-service:8761/eureka
       MONGO_HOST: "mongodb"
@@ -155,12 +155,11 @@ services:
       options:
         max-size: "50m"
         max-file: "3"
-
-#  web-ui:
-#    build:
-#      context: ./stock-market-web
-#    image: rbn1/stock-ms-stock-market-web:0.0.1-SNAPSHOT
-#    depends_on:
-#      - gateway-service
-#    ports:
-#      - 8888:80
+  web-ui:
+    build:
+      context: ./stock-market-web
+    image: rbn1/web-ui:latest
+    depends_on:
+      - gateway-service
+    ports:
+      - 8888:80
