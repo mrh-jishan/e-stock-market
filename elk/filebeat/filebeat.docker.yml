@@ -20,6 +20,6 @@ filebeat.autodiscover:
                     overwrite_keys: true
 
 output.logstash:
-  hosts: "192.168.86.23:5044"
+  hosts: "logstash:5044"
 
 logging.metrics.enabled: false

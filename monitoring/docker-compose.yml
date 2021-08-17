@@ -1,20 +1,12 @@
 version: "3"
 services:
-#  app:
-#    image: monitoring-demo:latest
-#    container_name: 'monitoring-demo'
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile
-#    ports:
-#      - '8080:8080'
   prometheus:
     image: prom/prometheus:v2.24.1
     container_name: 'prometheus'
     ports:
       - '9090:9090'
     volumes:
-      - ./monitoring/prometheus/:/etc/prometheus/
+      - ./data/prometheus/:/etc/prometheus/
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
@@ -24,8 +16,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./monitoring/grafana/provisioning/:/etc/grafana/provisioning/
+      - ./data/grafana/provisioning/:/etc/grafana/provisioning/
     env_file:
-      - ./monitoring/grafana/config.monitoring
+      - ./data/grafana/config.monitoring
     depends_on:
       - prometheus
