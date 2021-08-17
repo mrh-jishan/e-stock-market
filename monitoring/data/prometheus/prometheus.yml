@@ -17,7 +17,7 @@ scrape_configs:
     scrape_interval: 10s
     metrics_path: '/api/actuator/prometheus'
     static_configs:
-      - targets: ['192.168.86.23:8081']
+      - targets: ['market-api-service:8081']
         labels:
           application: 'market-api-service'
 
@@ -25,7 +25,7 @@ scrape_configs:
     scrape_interval: 10s
     metrics_path: '/api/actuator/prometheus'
     static_configs:
-      - targets: ['192.168.86.23:8082']
+      - targets: ['stock-api-service:8082']
         labels:
           application: 'stock-api-service'
 
@@ -33,9 +33,9 @@ scrape_configs:
     scrape_interval: 10s
     metrics_path: '/api/actuator/prometheus'
     static_configs:
-      - targets: ['192.168.86.23:8083']
+      - targets: ['auth-api-service:8083']
         labels:
-          application: 'stock-api-service'
+          application: 'auth-api-service'
 
   - job_name: 'prometheus'
     scrape_interval: 5s
