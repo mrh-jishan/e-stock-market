@@ -66,32 +66,42 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
 
-      - name: Build api-discovery Docker image
-        run: docker build -t rbn1/api-discovery:latest -t rbn1/api-discovery:${GITHUB_SHA::8} ./discovery-service
-      - name: Publish Docker image
-        run: docker push rbn1/api-discovery
-
-      - name: Build api-gateway Docker image
-        run: docker build -t rbn1/api-gateway:latest -t rbn1/api-gateway:${GITHUB_SHA::8} ./api-gateway
-      - name: Publish Docker image
-        run: docker push rbn1/api-gateway
-
-      - name: Build auth-service Docker image
-        run: docker build -t rbn1/auth-api:latest -t rbn1/auth-api:${GITHUB_SHA::8} ./auth-api
-      - name: Publish Docker image
-        run: docker push rbn1/auth-api
+      - name: build jar file
+        run: mvn clean install -DskipTests
+        with:
+          java-version: 11.0.4
 
       - name: Build stock-service Docker image
         run: docker build -t rbn1/stock-api:latest -t rbn1/stock-api:${GITHUB_SHA::8} ./stock-api
       - name: Publish Docker image
         run: docker push rbn1/stock-api
 
-      - name: Build market-service Docker image
-        run: docker build -t rbn1/market-api:latest -t rbn1/market-api:${GITHUB_SHA::8} ./market-api
-      - name: Publish Docker image
-        run: docker push rbn1/market-api
-
-      - name: Build web-ui Docker image
-        run: docker build -t rbn1/web-ui:latest -t rbn1/web-ui:${GITHUB_SHA::8} ./stock-market-web
-      - name: Publish Docker image
-        run: docker push rbn1/web-ui
+#      - name: Build api-discovery Docker image
+#        run: docker build -t rbn1/api-discovery:latest -t rbn1/api-discovery:${GITHUB_SHA::8} ./discovery-service
+#      - name: Publish Docker image
+#        run: docker push rbn1/api-discovery
+#
+#      - name: Build api-gateway Docker image
+#        run: docker build -t rbn1/api-gateway:latest -t rbn1/api-gateway:${GITHUB_SHA::8} ./api-gateway
+#      - name: Publish Docker image
+#        run: docker push rbn1/api-gateway
+#
+#      - name: Build auth-service Docker image
+#        run: docker build -t rbn1/auth-api:latest -t rbn1/auth-api:${GITHUB_SHA::8} ./auth-api
+#      - name: Publish Docker image
+#        run: docker push rbn1/auth-api
+#
+#      - name: Build stock-service Docker image
+#        run: docker build -t rbn1/stock-api:latest -t rbn1/stock-api:${GITHUB_SHA::8} ./stock-api
+#      - name: Publish Docker image
+#        run: docker push rbn1/stock-api
+#
+#      - name: Build market-service Docker image
+#        run: docker build -t rbn1/market-api:latest -t rbn1/market-api:${GITHUB_SHA::8} ./market-api
+#      - name: Publish Docker image
+#        run: docker push rbn1/market-api
+#
+#      - name: Build web-ui Docker image
+#        run: docker build -t rbn1/web-ui:latest -t rbn1/web-ui:${GITHUB_SHA::8} ./stock-market-web
+#      - name: Publish Docker image
+#        run: docker push rbn1/web-ui
