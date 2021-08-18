@@ -24,8 +24,8 @@ services:
       - ./data/mongo:/data/db
 
   discovery-service:
-#    build:
-#      context: ./discovery-service
+    build:
+      context: ./discovery-service
     image: rbn1/api-discovery:latest
     restart: always
     ports:
@@ -36,8 +36,8 @@ services:
         max-file: "3"
 
   gateway-service:
-#    build:
-#      context: ./api-gateway
+    build:
+      context: ./api-gateway
     image: rbn1/api-gateway:latest
     restart: always
     environment:
@@ -81,8 +81,8 @@ services:
         max-file: "3"
 
   market-api-service:
-#    build:
-#      context: ./market-api
+    build:
+      context: ./market-api
     image: rbn1/market-api:latest
     restart: always
     environment:
@@ -106,8 +106,8 @@ services:
         max-file: "3"
 #
   auth-api-service:
-#    build:
-#      context: ./auth-api
+    build:
+      context: ./auth-api
     image: rbn1/auth-api:latest
     restart: always
     environment:
