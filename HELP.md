@@ -28,3 +28,14 @@ echo http://$NODE_IP:$NODE_PORT
 ipconfig getifaddr en0 
 
 helm upgrade --install stock-api ./charts/stock-api --debug  
+
+kubectl get events -w
+
+helm upgrade --install web-ui ./charts/web-ui
+
+ k exec -it web-ui-89bbfd4bf-hgc89 -- apk --no-cache add curl 
+ 
+ 
+ helm install --install web-ui ./charts/web-ui --debug  
+ 
+ helm install --dry-run --debug ./charts/web-ui --generate-name

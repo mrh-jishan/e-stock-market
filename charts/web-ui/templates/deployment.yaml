@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "stock-api.fullname" . }}
+  name: {{ include "web-ui.fullname" . }}
   labels:
-    {{- include "stock-api.labels" . | nindent 4 }}
+    {{- include "web-ui.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "stock-api.selectorLabels" . | nindent 6 }}
+      {{- include "web-ui.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "stock-api.selectorLabels" . | nindent 8 }}
+        {{- include "web-ui.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "stock-api.serviceAccountName" . }}
+      serviceAccountName: {{ include "web-ui.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -33,56 +33,20 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: MONGO_HOST
-              value: {{.Values.mongodb.host}}
-
-            - name: SPRING_DATA_MONGODB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "stock-api.fullname" . }}
-                  key: mongodb.username
-
-            - name: SPRING_DATA_MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "stock-api.fullname" . }}
-                  key: mongodb.password
-
-            - name: EUREKA_SERVER
-              value: {{.Values.eureka.serviceUrl}}
-
           ports:
             - name: http
-              containerPort: 8082
+              containerPort: 80
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /api/actuator/health/ping
+              path: /
               port: http
-            initialDelaySeconds: 40
-            periodSeconds: 20
-            timeoutSeconds: 20
-
           readinessProbe:
             httpGet:
-              path: /api/actuator/health
+              path: /
               port: http
-            periodSeconds: 20
-            timeoutSeconds: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
-          volumeMounts:
-            - mountPath: "/app"
-              name: {{ include "stock-api.fullname" . }}
-              readOnly: true
-      volumes:
-        - name: {{ include "stock-api.fullname" . }}
-          secret:
-            secretName: {{ include "stock-api.fullname" . }}
-
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
