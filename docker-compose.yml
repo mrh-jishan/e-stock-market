@@ -60,8 +60,8 @@ services:
         max-file: "3"
 
   stock-api-service:
-#    build:
-#      context: ./stock-api
+    build:
+      context: ./stock-api
     image: rbn1/stock-api:latest
     restart: always
     environment:
