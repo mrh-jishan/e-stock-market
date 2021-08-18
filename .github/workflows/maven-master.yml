@@ -67,9 +67,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
 
       - name: build jar file
-        run: mvn clean install -DskipTests
-        with:
-          java-version: 11.0.4
+        run: mvn clean install 
 
       - name: Build stock-service Docker image
         run: docker build -t rbn1/stock-api:latest -t rbn1/stock-api:${GITHUB_SHA::8} ./stock-api
