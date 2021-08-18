@@ -35,18 +35,51 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8083
               protocol: TCP
+
+          env:
+            - name: MONGO_HOST
+              value: {{.Values.mongodb.host}}
+
+            - name: SPRING_DATA_MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "auth-api.fullname" . }}
+                  key: mongodb.username
+
+            - name: SPRING_DATA_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "auth-api.fullname" . }}
+                  key: mongodb.password
+
+            - name: EUREKA_SERVER
+              value: {{.Values.eureka.serviceUrl}}
+
           livenessProbe:
             httpGet:
-              path: /
+              path: /actuator/health/ping
               port: http
+            initialDelaySeconds: 40
+            periodSeconds: 20
+            timeoutSeconds: 20
+
           readinessProbe:
             httpGet:
-              path: /
+              path: /actuator/health
               port: http
+            periodSeconds: 20
+            timeoutSeconds: 20
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+      volumes:
+        - name: {{ include "auth-api.fullname" . }}
+          secret:
+            secretName: {{ include "auth-api.fullname" . }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

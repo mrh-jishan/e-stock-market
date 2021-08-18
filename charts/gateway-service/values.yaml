@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: rbn1/api-gateway
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,8 +37,9 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 8080
+  targetPort: 8080
 
 ingress:
   enabled: false
@@ -80,3 +81,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+mongodb:
+  host: "localhost"
+  username: "root"
+  password: "root"
+eureka:
+  serviceUrl: "http://localhost:8761/eureka"

@@ -35,18 +35,50 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8081
               protocol: TCP
+
+          env:
+            - name: MYSQL_HOST
+              value: {{.Values.mysql.host}}
+
+            - name: SPRING_DATA_MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "market-api.fullname" . }}
+                  key: mysql.username
+
+            - name: SPRING_DATA_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "market-api.fullname" . }}
+                  key: mysql.password
+
+            - name: EUREKA_SERVER
+              value: {{.Values.eureka.serviceUrl}}
+
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/actuator/health/ping
               port: http
+            initialDelaySeconds: 40
+            periodSeconds: 20
+            timeoutSeconds: 20
+
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/actuator/health
               port: http
+            periodSeconds: 20
+            timeoutSeconds: 20
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+      volumes:
+        - name: {{ include "market-api.fullname" . }}
+          secret:
+            secretName: {{ include "market-api.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
