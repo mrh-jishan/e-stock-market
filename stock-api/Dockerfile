@@ -1,19 +1,11 @@
 FROM maven:3.8.1-jdk-11-slim as build
-
 ENV HOME=/home/usr/app
-
 RUN mkdir -p $HOME
-
 WORKDIR $HOME
-
 ADD pom.xml $HOME
-
-RUN mvn dependency:go-offline -B
-
+RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "clean", "--fail-never"]
 ADD . $HOME
-
 RUN ["mvn", "package"]
-
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM maven:3.8.1-jdk-11-slim AS runner
