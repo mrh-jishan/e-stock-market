@@ -39,35 +39,27 @@ spec:
               protocol: TCP
 
           env:
-            - name: MONGO_HOST
-              value: {{.Values.mongodb.host}}
-
-            - name: SPRING_DATA_MONGODB_USERNAME
+            - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
                   name: {{ include "auth-api.fullname" . }}
-                  key: mongodb.username
-
-            - name: SPRING_DATA_MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "auth-api.fullname" . }}
-                  key: mongodb.password
+                  key: mongodb.uri
 
             - name: EUREKA_SERVER
               value: {{.Values.eureka.serviceUrl}}
 
           livenessProbe:
             httpGet:
-              path: /actuator/health/ping
+              path: /actuator/health/liveness
               port: http
             initialDelaySeconds: 40
             periodSeconds: 20
             timeoutSeconds: 20
+            failureThreshold: 3
 
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: http
             periodSeconds: 20
             timeoutSeconds: 20

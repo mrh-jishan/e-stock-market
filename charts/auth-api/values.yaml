@@ -83,8 +83,6 @@ tolerations: []
 affinity: {}
 
 mongodb:
-  host: "localhost"
-  username: "root"
-  password: "root"
+  uri: "mongodb://root:password@192.168.86.23:27017/auth-app"
 eureka:
-  serviceUrl: "http://localhost:8761/eureka"
+  serviceUrl: "http://192.168.86.23:8761/eureka"

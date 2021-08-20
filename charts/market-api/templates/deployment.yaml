@@ -39,8 +39,8 @@ spec:
               protocol: TCP
 
           env:
-            - name: MYSQL_HOST
-              value: {{.Values.mysql.host}}
+            - name: MYSQL_URL
+              value: {{.Values.mysql.url}}
 
             - name: SPRING_DATA_MYSQL_USERNAME
               valueFrom:

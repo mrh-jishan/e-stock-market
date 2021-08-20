@@ -34,20 +34,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: MONGO_HOST
-              value: {{.Values.mongodb.host}}
-
-            - name: SPRING_DATA_MONGODB_USERNAME
+            - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
                   name: {{ include "stock-api.fullname" . }}
-                  key: mongodb.username
-
-            - name: SPRING_DATA_MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "stock-api.fullname" . }}
-                  key: mongodb.password
+                  key: mongodb.uri
 
             - name: EUREKA_SERVER
               value: {{.Values.eureka.serviceUrl}}
@@ -56,32 +47,25 @@ spec:
             - name: http
               containerPort: 8082
               protocol: TCP
+
           livenessProbe:
             httpGet:
-              path: /api/actuator/health/ping
+              path: /api/actuator/health/liveness
               port: http
             initialDelaySeconds: 40
             periodSeconds: 20
             timeoutSeconds: 20
+            failureThreshold: 3
 
           readinessProbe:
             httpGet:
-              path: /api/actuator/health
+              path: /api/actuator/health/readiness
               port: http
             periodSeconds: 20
             timeoutSeconds: 20
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
-          volumeMounts:
-            - mountPath: "/app"
-              name: {{ include "stock-api.fullname" . }}
-              readOnly: true
-      volumes:
-        - name: {{ include "stock-api.fullname" . }}
-          secret:
-            secretName: {{ include "stock-api.fullname" . }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
