@@ -24,8 +24,8 @@ services:
       - ./data/mongo:/data/db
 
   discovery-service:
-#    build:
-#      context: ./discovery-service
+    build:
+      context: ./discovery-service
     image: rbn1/api-discovery:latest
 #    restart: always
     ports:
