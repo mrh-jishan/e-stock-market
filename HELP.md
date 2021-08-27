@@ -38,3 +38,8 @@ k exec -it web-ui-89bbfd4bf-hgc89 -- apk --no-cache add curl
  helm install --install web-ui ./charts/web-ui --debug  
  
  helm install --dry-run --debug ./charts/web-ui --generate-name
+
+
+
+
+git branch to aws: https://git-codecommit.us-east-1.amazonaws.com/v1/repos/stock-app-web
