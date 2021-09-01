@@ -10,7 +10,7 @@ services:
       - ./config/mysql/conf.d:/etc/mysql/conf.d
       - ./data/mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "mysql1234"
+      MYSQL_ROOT_PASSWORD: "password"
       MYSQL_ROOT_USERNAME: "root"
       MYSQL_DATABASE: "marketapp"
       TZ: 'Asia/Hong_Kong'
