@@ -42,13 +42,13 @@ spec:
             - name: MYSQL_URL
               value: {{.Values.mysql.url}}
 
-            - name: SPRING_DATA_MYSQL_USERNAME
+            - name: MYSQL_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: {{ include "market-api.fullname" . }}
                   key: mysql.username
 
-            - name: SPRING_DATA_MYSQL_PASSWORD
+            - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "market-api.fullname" . }}
@@ -59,15 +59,16 @@ spec:
 
           livenessProbe:
             httpGet:
-              path: /api/actuator/health/ping
+              path: /api/actuator/health/liveness
               port: http
             initialDelaySeconds: 40
             periodSeconds: 20
             timeoutSeconds: 20
+            failureThreshold: 3
 
           readinessProbe:
             httpGet:
-              path: /api/actuator/health
+              path: /api/actuator/health/readiness
               port: http
             periodSeconds: 20
             timeoutSeconds: 20
@@ -75,10 +76,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 
-      volumes:
-        - name: {{ include "market-api.fullname" . }}
-          secret:
-            secretName: {{ include "market-api.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

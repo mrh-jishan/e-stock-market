@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: rbn1/auth-api
+  repository: rbn1/market-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -37,9 +37,10 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 8081
   targetPort: 8081
+  name: http
 
 ingress:
   enabled: false
@@ -83,8 +84,8 @@ tolerations: []
 affinity: {}
 
 mysql:
-  url: "jdbc:mysql://localhost:3306/marketapp?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true"
+  url: "jdbc:mysql://mysql.chgecvlnvoz6.us-east-2.rds.amazonaws.com:3306/marketapp?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true"
   username: "root"
   password: "password"
 eureka:
-  serviceUrl: "http://192.168.86.23:8761/eureka"
+  serviceUrl: "http://a18c9e942dab54353b012e62ca3ae4d6-1098238869.us-east-2.elb.amazonaws.com:8761/eureka"

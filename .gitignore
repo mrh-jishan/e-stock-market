@@ -52,3 +52,6 @@ Thumbs.db
 /elk/**/data/**
 
 /sonarqube/monitoring/**
+eks-key-pair.pem
+iam_policy.json
+mongodb.pem

@@ -119,8 +119,8 @@ services:
 #      context: ./stock-market-web
 #    restart: always
     image: rbn1/web-ui:latest
-    depends_on:
-      - gateway-service
+#    depends_on:
+#      - gateway-service
     ports:
       - 8888:80
 
