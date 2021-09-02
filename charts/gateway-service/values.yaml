@@ -83,8 +83,6 @@ tolerations: []
 affinity: {}
 
 mongodb:
-  host: "localhost"
-  username: "root"
-  password: "root"
+  uri: "mongodb://root:password@ec2-18-117-244-243.us-east-2.compute.amazonaws.com:27017/admin"
 eureka:
-  serviceUrl: "http://localhost:8761/eureka"
+  serviceUrl: "http://aaac20b2ef86749628df519b212439ac-223826093.us-east-2.elb.amazonaws.com:8761/eureka"
