@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   name: http
-  type: NodePort
+  type: LoadBalancer
   port: 8082
   targetPort: 8082
 
@@ -84,6 +84,6 @@ tolerations: []
 affinity: {}
 
 mongodb:
-  uri: "mongodb://root:password@192.168.86.23:27017/stock-app"
+  uri: "mongodb://root:password@ec2-18-117-244-243.us-east-2.compute.amazonaws.com:27017/admin"
 eureka:
-  serviceUrl: "http://192.168.86.23:8761/eureka"
+  serviceUrl: "http://aaac20b2ef86749628df519b212439ac-223826093.us-east-2.elb.amazonaws.com:8761/eureka"

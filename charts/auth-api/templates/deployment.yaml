@@ -33,11 +33,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 8083
-              protocol: TCP
-
           env:
             - name: MONGODB_URI
               valueFrom:
@@ -47,6 +42,11 @@ spec:
 
             - name: EUREKA_SERVER
               value: {{.Values.eureka.serviceUrl}}
+
+          ports:
+            - name: http
+              containerPort: 8083
+              protocol: TCP
 
           livenessProbe:
             httpGet:
@@ -66,11 +66,6 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
-      volumes:
-        - name: {{ include "auth-api.fullname" . }}
-          secret:
-            secretName: {{ include "auth-api.fullname" . }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
