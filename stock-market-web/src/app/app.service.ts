@@ -40,7 +40,7 @@ export class AppService {
   }
 
   login(body) {
-    return this.http.post(`http://localhost:8080/api/v1.0/auth/login`, body, {
+    return this.http.post(`https://d637ky1ebqcpe.cloudfront.net/api/v1.0/auth/login`, body, {
       headers: this.headers,
       responseType: "json",
       observe: "response",
@@ -49,7 +49,7 @@ export class AppService {
   }
 
   register(body) {
-    return this.http.post('http://localhost:8080/api/v1.0/auth/register', body, {
+    return this.http.post('https://d637ky1ebqcpe.cloudfront.net/api/v1.0/auth/register', body, {
       headers: this.headers,
       observe: "response",
       responseType: "json",
@@ -58,23 +58,23 @@ export class AppService {
   }
 
   createCompany(body) {
-    return this.http.post('http://localhost:8080/api/v1.0/market/company/register', body, {headers: this.headers})
+    return this.http.post('http://ad4a70b23007d4275a4503693845f145-634513487.us-east-2.elb.amazonaws.com:8081/api/v1.0/market/company/register', body, {headers: this.headers})
   }
 
   addStock(companyCode, body) {
-    return this.http.post(`http://localhost:8080/api/v1.0/market/stock/add/${companyCode}`, body, {headers: this.headers})
+    return this.http.post(`http://a085b90bb46cc41589093086a8dabec3-1116436512.us-east-2.elb.amazonaws.com:8082/api/v1.0/market/stock/add/${companyCode}`, body, {headers: this.headers})
   }
 
   getCompanyList() {
-    return this.http.get('http://localhost:8080/api/v1.0/market/company/getall', {headers: this.headers})
+    return this.http.get('http://ad4a70b23007d4275a4503693845f145-634513487.us-east-2.elb.amazonaws.com:8081/api/v1.0/market/company/getall', {headers: this.headers})
   }
 
   getStockList(companyCode) {
-    return this.http.get(`http://localhost:8080/api/v1.0/market/company/info/${companyCode}`, {headers: this.headers})
+    return this.http.get(`http://ad4a70b23007d4275a4503693845f145-634513487.us-east-2.elb.amazonaws.com:8081/api/v1.0/market/company/info/${companyCode}`, {headers: this.headers})
   }
 
   getFilterStock(companyCode, startDate, endDate) {
-    return this.http.get(`http://localhost:8080/api/v1.0/market/stock/get/${companyCode}/${startDate}/${endDate}`, {headers: this.headers})
+    return this.http.get(`http://ad4a70b23007d4275a4503693845f145-634513487.us-east-2.elb.amazonaws.com:8081/api/v1.0/market/stock/get/${companyCode}/${startDate}/${endDate}`, {headers: this.headers})
   }
 
 }
