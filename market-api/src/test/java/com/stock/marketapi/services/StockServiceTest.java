@@ -34,7 +34,7 @@ class StockServiceTest {
 
     @Test
     void companyInfo() {
-        URI uri = UriComponentsBuilder.fromUriString("http://STOCK-API/api/v1.0/market/stock/get/{companyCode}")
+        URI uri = UriComponentsBuilder.fromUriString("http://a085b90bb46cc41589093086a8dabec3-1116436512.us-east-2.elb.amazonaws.com:8082/api/v1.0/market/stock/get/{companyCode}")
                 .buildAndExpand("xxx").toUri();
         when(restTemplate.exchange(eq(uri), eq(HttpMethod.GET),
                 any(),
@@ -48,7 +48,7 @@ class StockServiceTest {
 
     @Test
     void deleteStock() {
-        URI uri = UriComponentsBuilder.fromUriString("http://STOCK-API/api/v1.0/market/stock/delete/{companyCode}")
+        URI uri = UriComponentsBuilder.fromUriString("http://a085b90bb46cc41589093086a8dabec3-1116436512.us-east-2.elb.amazonaws.com:8082/api/v1.0/market/stock/delete/{companyCode}")
                 .buildAndExpand("xxx").toUri();
         when(restTemplate.exchange(eq(uri), eq(HttpMethod.DELETE),
                 any(),

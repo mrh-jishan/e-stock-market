@@ -1,6 +1,5 @@
 package com.stock.marketapi.config;
 
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
@@ -14,7 +13,6 @@ import java.util.List;
 @Configuration
 public class Config {
     @Bean
-    @LoadBalanced
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();

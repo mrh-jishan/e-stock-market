@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: rbn1/market-api
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -84,7 +84,7 @@ tolerations: []
 affinity: {}
 
 mysql:
-  url: "jdbc:mysql://mysql.chgecvlnvoz6.us-east-2.rds.amazonaws.com:3306/marketapp?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true"
+  url: "jdbc:mysql://mysqldb.chgecvlnvoz6.us-east-2.rds.amazonaws.com:3306/marketapp?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true"
   username: "root"
   password: "password"
 eureka:

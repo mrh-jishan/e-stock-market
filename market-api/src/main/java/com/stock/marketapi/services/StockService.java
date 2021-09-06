@@ -18,7 +18,7 @@ public class StockService {
     private final RestTemplate restTemplate;
 
     public List<StockDto> companyInfo(String companyCode) {
-        URI uri = UriComponentsBuilder.fromUriString("http://STOCK-API/api/v1.0/market/stock/get/{companyCode}")
+        URI uri = UriComponentsBuilder.fromUriString("http://a085b90bb46cc41589093086a8dabec3-1116436512.us-east-2.elb.amazonaws.com:8082/api/v1.0/market/stock/get/{companyCode}")
                 .buildAndExpand(companyCode).toUri();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -29,7 +29,7 @@ public class StockService {
     }
 
     public List<StockDto> deleteStock(String companyCode) {
-        URI uri = UriComponentsBuilder.fromUriString("http://STOCK-API/api/v1.0/market/stock/delete/{companyCode}")
+        URI uri = UriComponentsBuilder.fromUriString("http://a085b90bb46cc41589093086a8dabec3-1116436512.us-east-2.elb.amazonaws.com:8082/api/v1.0/market/stock/delete/{companyCode}")
                 .buildAndExpand(companyCode).toUri();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

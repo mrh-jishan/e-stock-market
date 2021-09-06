@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: rbn1/web-ui
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
